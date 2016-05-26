@@ -17,6 +17,10 @@ public class Person {
     String emailAddress;
 
     //constructors
+    public Person() {
+
+    }
+
     public Person(int id, String name, String surname, long peselNumber, boolean gender, Date dateOfBirth, String address, String emailAddress) {
         this.id = id;
         this.name = name;

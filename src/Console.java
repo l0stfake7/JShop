@@ -1,4 +1,5 @@
 import Classes.Customer;
+import Classes.MyException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,23 +16,29 @@ public class Console {
         customerMap.put(cust.getId(), cust);
     }
 
-    private static Customer getCustomer(int id) {
-        return customerMap.get(id);
+    private static Customer getCustomer(int id) throws MyException {
+        if(customerMap.get(id) == null)
+            throw new MyException("Not found object with id: " + id);
+        else
+            return customerMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
     }
 
     public static void main(String[] args) {
 
         try (Scanner scanner = new Scanner(System.in)){//scanner close automatically with end of try body
-            System.out.println("JBank v1.0.0");
+            System.out.println("JBank v1.0.0\n\n");
 
             //test object
             DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
             Date todayDate = dateFormat.parse("12-10-2016"); // for example, today's date
-            Customer customer1 = new Customer(0, "Bartek", "Poniatyszyn", 94070606974L, false, todayDate, "Nyska 9/7, 48-200 Prudnik", "bartek.poniatyszyn@gmail.com", todayDate, 1900);
-            Customer emptyCustomer = new Customer();
+            Customer customer1 = new Customer(1, "Bartek", "Poniatyszyn", 94070606974L, false, todayDate, "Nyska 9/7, 48-200 Prudnik", "bartek.poniatyszyn@gmail.com", todayDate, 1900);
+            Customer customer2 = new Customer(2, "Marlenka", "Grabowska", 12345678901L, true, todayDate, "Pomorska 9, 50-200", "marlenka.grabowska@microsoft.com", todayDate, 2000);
 
             addCustomer(customer1);
-            addCustomer(emptyCustomer);
+            addCustomer(customer2);
+
+            Customer newCustomer = getCustomer(0);
+            System.out.println(newCustomer.getBalance());
 
             boolean exitFlag = false;
             while(!exitFlag) {
@@ -84,12 +91,12 @@ public class Console {
                     continue;
                 }
             }
-
         }
         catch(Exception exc) {
             System.out.println("Exception: " + exc);
-        }
-        finally {
+        } catch (MyException exc ) {
+            System.out.println("Exception: " + exc);
+        } finally {
             System.out.println("Bye!");
         }
     }

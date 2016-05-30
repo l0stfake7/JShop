@@ -36,7 +36,7 @@ public class Console {
 
             addCustomer(customer1);
             addCustomer(customer2);
-            scanner.ne
+
             Customer newCustomer = getCustomer(0);
             System.out.println(newCustomer.getBalance());
 

@@ -1,5 +1,6 @@
 package Classes;
 
+
 /**
  * Created by bartek on 26.05.16.
  */
@@ -8,6 +9,5 @@ public class MyException extends Throwable {
 
     public MyException(String message) {
         super(message);
-
     }
 }

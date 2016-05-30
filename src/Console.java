@@ -31,12 +31,12 @@ public class Console {
             //test object
             DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
             Date todayDate = dateFormat.parse("12-10-2016"); // for example, today's date
-            Customer customer1 = new Customer(1, "Bartek", "Poniatyszyn", 94070606974L, false, todayDate, "Nyska 9/7, 48-200 Prudnik", "bartek.poniatyszyn@gmail.com", todayDate, 1900);
-            Customer customer2 = new Customer(2, "Marlenka", "Grabowska", 12345678901L, true, todayDate, "Pomorska 9, 50-200", "marlenka.grabowska@microsoft.com", todayDate, 2000);
+            Customer customer1 = new Customer(1, "Bartek", "Kowalski", 12312342454L, false, todayDate, "Kłodzka 8/7, 20-200 Opole", "bartek.kowalski@gmail.com", todayDate, 1900);
+            Customer customer2 = new Customer(2, "Janina", "Kowalska", 12345678901L, true, todayDate, "Pomorska 9, 50-200", "janina.kowalska@microsoft.com", todayDate, 2000);
 
             addCustomer(customer1);
             addCustomer(customer2);
-
+            scanner.ne
             Customer newCustomer = getCustomer(0);
             System.out.println(newCustomer.getBalance());
 

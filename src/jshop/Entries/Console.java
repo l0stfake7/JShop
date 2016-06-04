@@ -1,29 +1,41 @@
-import Classes.Customer;
-import Classes.MyException;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jshop.Entries;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import jshop.Classes.*;
 
 /**
- * Created by bartek on 24.05.16.
+ *
+ * @author bartek
  */
 public class Console {
 
+    /**
+     * @param args the command line arguments
+     */
     static Map<Integer, Customer> customerMap=new HashMap<Integer, Customer>();
 
     private static void addCustomer(Customer cust) {
         customerMap.put(cust.getId(), cust);
     }
 
-    private static Customer getCustomer(int id) throws MyException {
+    private static Customer getCustomer(int id) throws ShopException {
         if(customerMap.get(id) == null)
             return null;//or throw new MyException("Not found object with id: " + id);//what is better?
         else
             return customerMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ShopException {
 
         try (Scanner scanner = new Scanner(System.in)){//scanner close automatically with end of try body
             System.out.println("JBank v1.0.0\n\n");
@@ -70,7 +82,7 @@ public class Console {
 
                                     number = scanner.nextShort();
                                     if(getCustomer(number) == null) {
-                                        throw new MyException("Not found object with id: " + number);
+                                        throw new ShopException("Not found object with id: " + number);
                                     }
                                     else {
                                         Customer customer = getCustomer(number);
@@ -109,10 +121,11 @@ public class Console {
         }
         catch(Exception exc) {
             System.out.println("Exception: " + exc);
-        } catch (MyException exc ) {
+        } catch (ShopException exc ) {
             System.out.println("Exception: " + exc);
         } finally {
             System.out.println("Bye!");
         }
     }
+    
 }

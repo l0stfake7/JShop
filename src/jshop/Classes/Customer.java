@@ -1,9 +1,15 @@
-package Classes;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jshop.Classes;
 
 import java.util.Date;
 
 /**
- * Created by bartek on 26.05.16.
+ *
+ * @author bartek
  */
 public class Customer extends Person {
     //fields

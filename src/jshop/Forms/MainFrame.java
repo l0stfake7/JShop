@@ -5,7 +5,11 @@
  */
 package jshop.Forms;
 
+import java.util.HashMap;
+import java.util.Map;
 import static javax.swing.JOptionPane.showMessageDialog;
+import jshop.Classes.Customer;
+import jshop.Classes.ShopException;
 
 /**
  *
@@ -13,11 +17,27 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    static Map<Integer, Customer> customerMap;
+
+    private static void addCustomer(Customer cust) {
+        customerMap.put(cust.getId(), cust);
+    }
+
+    private static Customer getCustomer(int id) throws ShopException {
+        if(customerMap.get(id) == null)
+            return null;//or throw new MyException("Not found object with id: " + id);//what is better?
+        else
+            return customerMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
+    }
+    
+    
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        
+        customerMap=new HashMap<Integer, Customer>();
     }
 
     /**
@@ -32,6 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
         ScrollPane1Customers = new javax.swing.JScrollPane();
         ListCustomers = new javax.swing.JList<>();
         LabelCustomers = new javax.swing.JLabel();
+        ButtonCustomerAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,16 +70,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         LabelCustomers.setText("Klienci");
 
+        ButtonCustomerAdd.setText("Dodaj");
+        ButtonCustomerAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonCustomerAddMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ScrollPane1Customers, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelCustomers))
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ScrollPane1Customers)
+                    .addComponent(LabelCustomers)
+                    .addComponent(ButtonCustomerAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -67,7 +96,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(LabelCustomers)
                 .addGap(7, 7, 7)
                 .addComponent(ScrollPane1Customers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ButtonCustomerAdd)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         LabelCustomers.getAccessibleContext().setAccessibleName("LabelCustomers");
@@ -80,6 +111,11 @@ public class MainFrame extends javax.swing.JFrame {
             showMessageDialog(null, ListCustomers.getSelectedIndex());
         }
     }//GEN-LAST:event_ListCustomersMouseClicked
+
+    private void ButtonCustomerAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerAddMouseClicked
+        new CustomerAddFrame().setVisible(true);
+        this.dispose();//hide
+    }//GEN-LAST:event_ButtonCustomerAddMouseClicked
 
     /**
      * @param args the command line arguments
@@ -117,6 +153,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonCustomerAdd;
     private javax.swing.JLabel LabelCustomers;
     private javax.swing.JList<String> ListCustomers;
     private javax.swing.JScrollPane ScrollPane1Customers;

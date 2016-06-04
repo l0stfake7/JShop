@@ -25,11 +25,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ScrollPane1Customers" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="ScrollPane1Customers" alignment="0" max="32767" attributes="0"/>
                   <Component id="LabelCustomers" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="ButtonCustomerAdd" alignment="1" pref="134" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="254" max="32767" attributes="0"/>
+              <EmptySpace pref="245" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -40,7 +41,9 @@
               <Component id="LabelCustomers" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Component id="ScrollPane1Customers" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="127" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="ButtonCustomerAdd" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="96" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -81,6 +84,14 @@
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="LabelCustomers"/>
       </AccessibilityProperties>
+    </Component>
+    <Component class="javax.swing.JButton" name="ButtonCustomerAdd">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Dodaj"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonCustomerAddMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

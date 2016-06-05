@@ -7,8 +7,10 @@ package jshop.Forms;
 
 import java.awt.Dialog;
 import java.awt.Window;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
@@ -23,7 +25,8 @@ public class MainFramePanel extends javax.swing.JPanel {
 
     private CustomerAddPanel dialogPanel = new CustomerAddPanel();
     private JDialog dialog;
-    
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+
     private static Map<Integer, Customer> customerMap;
 
     private static void addCustomer(Customer cust) {
@@ -31,19 +34,20 @@ public class MainFramePanel extends javax.swing.JPanel {
     }
 
     private static Customer getCustomer(int id) throws ShopException {
-        if(customerMap.get(id) == null)
+        if (customerMap.get(id) == null) {
             return null;//or throw new MyException("Not found object with id: " + id);//what is better?
-        else
+        } else {
             return customerMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
+        }
     }
-    
+
     /**
      * Creates new form MainFramePanel
      */
     public MainFramePanel() {
         initComponents();
-        
-        customerMap=new HashMap<Integer, Customer>();
+
+        customerMap = new HashMap<Integer, Customer>();
     }
 
     /**
@@ -62,11 +66,7 @@ public class MainFramePanel extends javax.swing.JPanel {
 
         LabelCustomers.setText("Klienci");
 
-        ListCustomers.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        ListCustomers.setModel(listModel);
         ListCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListCustomersMouseClicked(evt);
@@ -91,7 +91,7 @@ public class MainFramePanel extends javax.swing.JPanel {
                     .addComponent(LabelCustomers)
                     .addComponent(jScrollPane1)
                     .addComponent(ButtonCustomerAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,25 +102,44 @@ public class MainFramePanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ButtonCustomerAdd)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonCustomerAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerAddMouseClicked
         if (dialog == null) {
-         Window win = SwingUtilities.getWindowAncestor(this);
-         if (win != null) {
-            dialog = new JDialog(win, "My Dialog",
-                     Dialog.ModalityType.APPLICATION_MODAL);
-            dialog.getContentPane().add(dialogPanel);
-            dialog.pack();
-            dialog.setLocationRelativeTo(null);
-         }
-      }
-      dialog.setVisible(true); // here the modal dialog takes over
-      
-      //here get values from fields by getters
-      Customer customer = new Customer();
+            Window win = SwingUtilities.getWindowAncestor(this);
+            if (win != null) {
+                dialog = new JDialog(win, "Dodaj klienta",
+                        Dialog.ModalityType.APPLICATION_MODAL);
+                dialog.getContentPane().add(dialogPanel);
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+            }
+        }
+        dialog.setVisible(true); // here the modal dialog takes over
+
+        //get values from fields by getters      
+        Date todayDate = new Date();
+
+        Customer customer = new Customer(0,
+                dialogPanel.getName(),
+                dialogPanel.getSurname(),
+                dialogPanel.getPeselNumber(),
+                dialogPanel.getGender(),
+                dialogPanel.getDateBirthDay(),
+                dialogPanel.getAddress(),
+                dialogPanel.getEmail(),
+                todayDate,
+                dialogPanel.getBalance()
+        );
+        //add to collection
+        addCustomer(customer);
+
+        //add to list
+        String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+        listModel.addElement(sb);
+
     }//GEN-LAST:event_ButtonCustomerAddMouseClicked
 
     private void ListCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListCustomersMouseClicked

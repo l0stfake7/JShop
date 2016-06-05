@@ -84,7 +84,7 @@ public class CustomerAddPanel extends javax.swing.JPanel {
 
         TextFieldEmail.setText("jTextField5");
 
-        SpinnerBalance.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 1.0f));
+        SpinnerBalance.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         SpinnerBalance.setName(""); // NOI18N
 
         LabalName.setText("Imię");
@@ -192,8 +192,8 @@ public class CustomerAddPanel extends javax.swing.JPanel {
         return TextFieldSurname.getText();
     }
     
-    public String getPeselNumber() {
-        return TextFieldPeselNumber.getText();
+    public long getPeselNumber() {
+        return Long.parseLong(TextFieldPeselNumber.getText());
     }
     
     public String getEmail() {
@@ -209,8 +209,8 @@ public class CustomerAddPanel extends javax.swing.JPanel {
         return RadioButtonMen.isSelected();
     }
     
-    public float getBalace() {
-        
+    public double getBalance() {
+        return (double) SpinnerBalance.getValue();
     }
     
     private void ButtonAddCustomerDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAddCustomerDialogMouseClicked

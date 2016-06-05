@@ -50,15 +50,9 @@ public class CustomerAddPanel extends javax.swing.JPanel {
         LabalName = new javax.swing.JLabel();
         LabelSurname = new javax.swing.JLabel();
 
-        TextFieldName.setText("jTextField1");
-
         LabelPeselNumber.setText("Numer PESEL");
 
-        TextFieldSurname.setText("jTextField2");
-
         LabelGender.setText("Płeć");
-
-        TextFieldPeselNumber.setText("jTextField3");
 
         LabelDateOfBirth.setText("Data urodzenia");
 
@@ -73,16 +67,12 @@ public class CustomerAddPanel extends javax.swing.JPanel {
 
         LabelBalance.setText("Saldo");
 
-        TextFieldAddress.setText("jTextField4");
-
         ButtonAddCustomerDialog.setText("Dodaj klienta");
         ButtonAddCustomerDialog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonAddCustomerDialogMouseClicked(evt);
             }
         });
-
-        TextFieldEmail.setText("jTextField5");
 
         SpinnerBalance.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         SpinnerBalance.setName(""); // NOI18N
@@ -214,9 +204,9 @@ public class CustomerAddPanel extends javax.swing.JPanel {
     }
     
     private void ButtonAddCustomerDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAddCustomerDialogMouseClicked
-        Window win = SwingUtilities.getWindowAncestor(this);
-        if (win != null) {
-           win.dispose();
+        Window window = SwingUtilities.getWindowAncestor(this);
+        if (window != null) {
+           window.dispose();
         }
     }//GEN-LAST:event_ButtonAddCustomerDialogMouseClicked
 

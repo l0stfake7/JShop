@@ -71,7 +71,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="ButtonCustomerAdd">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Dodaj Klienta"/>
+        <Property name="text" type="java.lang.String" value="Dodaj klienta"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonCustomerAddMouseClicked"/>

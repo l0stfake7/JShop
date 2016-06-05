@@ -10,12 +10,15 @@ import java.awt.Window;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.ShopException;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -23,8 +26,8 @@ import jshop.Classes.ShopException;
  */
 public class MainFramePanel extends javax.swing.JPanel {
 
-    private CustomerAddPanel dialogPanel = new CustomerAddPanel();
-    private JDialog dialog;
+    private int globalIdCounter = 0;    
+    
     DefaultListModel<String> listModel = new DefaultListModel<>();
 
     private static Map<Integer, Customer> customerMap;
@@ -49,7 +52,7 @@ public class MainFramePanel extends javax.swing.JPanel {
 
         customerMap = new HashMap<Integer, Customer>();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,7 +77,7 @@ public class MainFramePanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(ListCustomers);
 
-        ButtonCustomerAdd.setText("Dodaj Klienta");
+        ButtonCustomerAdd.setText("Dodaj klienta");
         ButtonCustomerAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonCustomerAddMouseClicked(evt);
@@ -107,44 +110,79 @@ public class MainFramePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonCustomerAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerAddMouseClicked
-        if (dialog == null) {
-            Window win = SwingUtilities.getWindowAncestor(this);
-            if (win != null) {
-                dialog = new JDialog(win, "Dodaj klienta",
-                        Dialog.ModalityType.APPLICATION_MODAL);
-                dialog.getContentPane().add(dialogPanel);
-                dialog.pack();
-                dialog.setLocationRelativeTo(null);
+        try {
+            CustomerAddPanel customerAddPanel = new CustomerAddPanel();
+            JDialog dialog = null;
+            if (dialog == null) {            
+                Window win = SwingUtilities.getWindowAncestor(this);
+                if (win != null) {
+                    dialog = new JDialog(win, "Dodaj klienta",
+                            Dialog.ModalityType.APPLICATION_MODAL);
+                    dialog.getContentPane().add(customerAddPanel);
+                    dialog.pack();
+                    dialog.setLocationRelativeTo(null);
+                }
             }
+            dialog.setVisible(true); // here the modal dialog takes over
+            //TODO check if datas from form is not null
+            //get values from fields by getters      
+            Date todayDate = new Date();
+            globalIdCounter++;
+            Customer customer = new Customer(globalIdCounter,
+                    customerAddPanel.getName(),
+                    customerAddPanel.getSurname(),
+                    customerAddPanel.getPeselNumber(),
+                    customerAddPanel.getGender(),
+                    customerAddPanel.getDateBirthDay(),
+                    customerAddPanel.getAddress(),
+                    customerAddPanel.getEmail(),
+                    todayDate,
+                    customerAddPanel.getBalance()
+            );
+            //add to collection
+            addCustomer(customer);
+        
+            //add to list
+            String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+            listModel.addElement(sb);
         }
-        dialog.setVisible(true); // here the modal dialog takes over
-
-        //get values from fields by getters      
-        Date todayDate = new Date();
-
-        Customer customer = new Customer(0,
-                dialogPanel.getName(),
-                dialogPanel.getSurname(),
-                dialogPanel.getPeselNumber(),
-                dialogPanel.getGender(),
-                dialogPanel.getDateBirthDay(),
-                dialogPanel.getAddress(),
-                dialogPanel.getEmail(),
-                todayDate,
-                dialogPanel.getBalance()
-        );
-        //add to collection
-        addCustomer(customer);
-
-        //add to list
-        String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
-        listModel.addElement(sb);
-
+        catch(Exception e) {
+            
+        }
     }//GEN-LAST:event_ButtonCustomerAddMouseClicked
 
     private void ListCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListCustomersMouseClicked
-        if (evt.getClickCount() == 2) {
-            showMessageDialog(null, ListCustomers.getSelectedIndex());
+        try {
+            CustomerChooseActionPanel customerChooseActionPanel = new CustomerChooseActionPanel();
+            JDialog dialog = null;
+            if (evt.getClickCount() == 2) {
+                //show 
+                showMessageDialog(null, ListCustomers.getSelectedIndex());
+                if (dialog == null) {
+                    Window win = SwingUtilities.getWindowAncestor(this);
+                    if (win != null) {
+                        dialog = new JDialog(win, "Wybierz akcję",
+                                Dialog.ModalityType.APPLICATION_MODAL);
+                        dialog.getContentPane().add(customerChooseActionPanel);
+                        dialog.pack();
+                        dialog.setLocationRelativeTo(null);
+                    }
+                }
+                dialog.setVisible(true); // here the modal dialog takes over
+                //if ListCustomers.getSelectedIndex() == -1 then only add customer
+                //get clicked button
+                if(customerChooseActionPanel.getChooseAction() == 1) {//edit
+                    dialog = null;
+                    showMessageDialog(null, "edit");
+                }
+                else if(customerChooseActionPanel.getChooseAction() == 2) {//remove
+                    dialog = null;
+                    showMessageDialog(null, "remove");
+                }
+            }
+        }
+        catch (Exception e) {
+            
         }
     }//GEN-LAST:event_ListCustomersMouseClicked
 

@@ -5,9 +5,13 @@
  */
 package jshop.Forms;
 
+import java.awt.Dialog;
+import java.awt.Window;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.ShopException;
 
@@ -15,9 +19,12 @@ import jshop.Classes.ShopException;
  *
  * @author bartek
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFramePanel extends javax.swing.JPanel {
 
-    static Map<Integer, Customer> customerMap;
+    private CustomerAddPanel dialogPanel = new CustomerAddPanel();
+    private JDialog dialog;
+    
+    private static Map<Integer, Customer> customerMap;
 
     private static void addCustomer(Customer cust) {
         customerMap.put(cust.getId(), cust);
@@ -30,11 +37,10 @@ public class MainFrame extends javax.swing.JFrame {
             return customerMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
     }
     
-    
     /**
-     * Creates new form MainFrame
+     * Creates new form MainFramePanel
      */
-    public MainFrame() {
+    public MainFramePanel() {
         initComponents();
         
         customerMap=new HashMap<Integer, Customer>();
@@ -49,12 +55,12 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ScrollPane1Customers = new javax.swing.JScrollPane();
-        ListCustomers = new javax.swing.JList<>();
         LabelCustomers = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListCustomers = new javax.swing.JList<>();
         ButtonCustomerAdd = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        LabelCustomers.setText("Klienci");
 
         ListCustomers.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -66,96 +72,68 @@ public class MainFrame extends javax.swing.JFrame {
                 ListCustomersMouseClicked(evt);
             }
         });
-        ScrollPane1Customers.setViewportView(ListCustomers);
+        jScrollPane1.setViewportView(ListCustomers);
 
-        LabelCustomers.setText("Klienci");
-
-        ButtonCustomerAdd.setText("Dodaj");
+        ButtonCustomerAdd.setText("Dodaj Klienta");
         ButtonCustomerAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonCustomerAddMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ScrollPane1Customers)
                     .addComponent(LabelCustomers)
-                    .addComponent(ButtonCustomerAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
-                .addContainerGap(245, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(ButtonCustomerAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LabelCustomers)
-                .addGap(7, 7, 7)
-                .addComponent(ScrollPane1Customers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ButtonCustomerAdd)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
-
-        LabelCustomers.getAccessibleContext().setAccessibleName("LabelCustomers");
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-    //lista klientów, kliknięcie na jeden z elementów listy
+
+    private void ButtonCustomerAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerAddMouseClicked
+        if (dialog == null) {
+         Window win = SwingUtilities.getWindowAncestor(this);
+         if (win != null) {
+            dialog = new JDialog(win, "My Dialog",
+                     Dialog.ModalityType.APPLICATION_MODAL);
+            dialog.getContentPane().add(dialogPanel);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+         }
+      }
+      dialog.setVisible(true); // here the modal dialog takes over
+      
+      //here get values from fields by getters
+      Customer customer = new Customer();
+    }//GEN-LAST:event_ButtonCustomerAddMouseClicked
+
     private void ListCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListCustomersMouseClicked
         if (evt.getClickCount() == 2) {
             showMessageDialog(null, ListCustomers.getSelectedIndex());
         }
     }//GEN-LAST:event_ListCustomersMouseClicked
 
-    private void ButtonCustomerAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerAddMouseClicked
-        new CustomerAddFrame().setVisible(true);
-        this.dispose();//hide
-    }//GEN-LAST:event_ButtonCustomerAddMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCustomerAdd;
     private javax.swing.JLabel LabelCustomers;
     private javax.swing.JList<String> ListCustomers;
-    private javax.swing.JScrollPane ScrollPane1Customers;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

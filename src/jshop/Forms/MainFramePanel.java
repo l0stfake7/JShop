@@ -25,12 +25,17 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author bartek
  */
 public class MainFramePanel extends javax.swing.JPanel {
-
-    private int globalIdCounter = 0;    
+    
+    private CustomerAddPanel customerAddPanel;
+    private CustomerChooseActionPanel customerChooseActionPanel;
+    
+    private int globalIdCounter = 0;//Customers Id    
+    private int listItemsCounter = 0;//items in jList
     
     DefaultListModel<String> listModel = new DefaultListModel<>();
 
     private static Map<Integer, Customer> customerMap;
+    private static Map<Integer, Integer> listCustomerBind;//Customer Id, Id from jList
 
     private static void addCustomer(Customer cust) {
         customerMap.put(cust.getId(), cust);
@@ -49,7 +54,8 @@ public class MainFramePanel extends javax.swing.JPanel {
      */
     public MainFramePanel() {
         initComponents();
-
+        
+        listCustomerBind = new HashMap<Integer, Integer>();//Customer Id, Id from jList
         customerMap = new HashMap<Integer, Customer>();
     }
     
@@ -70,6 +76,7 @@ public class MainFramePanel extends javax.swing.JPanel {
         LabelCustomers.setText("Klienci");
 
         ListCustomers.setModel(listModel);
+        ListCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         ListCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListCustomersMouseClicked(evt);
@@ -110,8 +117,8 @@ public class MainFramePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonCustomerAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerAddMouseClicked
-        try {
-            CustomerAddPanel customerAddPanel = new CustomerAddPanel();
+        
+            customerAddPanel = new CustomerAddPanel();
             JDialog dialog = null;
             if (dialog == null) {            
                 Window win = SwingUtilities.getWindowAncestor(this);
@@ -127,7 +134,7 @@ public class MainFramePanel extends javax.swing.JPanel {
             //TODO check if datas from form is not null
             //get values from fields by getters      
             Date todayDate = new Date();
-            globalIdCounter++;
+            
             Customer customer = new Customer(globalIdCounter,
                     customerAddPanel.getName(),
                     customerAddPanel.getSurname(),
@@ -141,19 +148,19 @@ public class MainFramePanel extends javax.swing.JPanel {
             );
             //add to collection
             addCustomer(customer);
-        
+            //listCustomerBind.put(customer.getId(), listItemsCounter);
+            
             //add to list
             String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
             listModel.addElement(sb);
-        }
-        catch(Exception e) {
-            
-        }
+            globalIdCounter++;
+            listItemsCounter++;
+
     }//GEN-LAST:event_ButtonCustomerAddMouseClicked
 
     private void ListCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListCustomersMouseClicked
         try {
-            CustomerChooseActionPanel customerChooseActionPanel = new CustomerChooseActionPanel();
+            customerChooseActionPanel = new CustomerChooseActionPanel();
             JDialog dialog = null;
             if (evt.getClickCount() == 2) {
                 //show 
@@ -171,13 +178,39 @@ public class MainFramePanel extends javax.swing.JPanel {
                 dialog.setVisible(true); // here the modal dialog takes over
                 //if ListCustomers.getSelectedIndex() == -1 then only add customer
                 //get clicked button
-                if(customerChooseActionPanel.getChooseAction() == 1) {//edit
+                final int selectedItem = ListCustomers.getSelectedIndex();
+                if(customerChooseActionPanel.getChooseAction() == 1) {//add                    
                     dialog = null;
-                    showMessageDialog(null, "edit");
+                    showMessageDialog(null, "add");
                 }
-                else if(customerChooseActionPanel.getChooseAction() == 2) {//remove
-                    dialog = null;
-                    showMessageDialog(null, "remove");
+                else if(customerChooseActionPanel.getChooseAction() == 2) {//show
+                    if(globalIdCounter != 0) {                        
+                        showMessageDialog(null, "show");
+                        
+                    }
+                    else {
+                        showMessageDialog(null, "Brak klientów");
+                    }
+                    dialog = null;                    
+                }
+                else if(customerChooseActionPanel.getChooseAction() == 3 && globalIdCounter != 0) {//edit
+                    if(globalIdCounter != 0) {                        
+                        showMessageDialog(null, "edit");
+                    }
+                    else {
+                        showMessageDialog(null, "Brak klientów");
+                    }
+                    dialog = null; 
+                }
+                else if(customerChooseActionPanel.getChooseAction() == 4 && globalIdCounter != 0) {//remove
+                    if(globalIdCounter != 0) {                        
+                        showMessageDialog(null, "remove");
+                        listModel.removeElementAt(selectedItem);
+                    }
+                    else {
+                        showMessageDialog(null, "Brak klientów");
+                    }
+                    dialog = null; 
                 }
             }
         }

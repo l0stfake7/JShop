@@ -173,25 +173,49 @@ public class CustomerAddPanel extends javax.swing.JPanel {
         Date date = DateChooserBirthDay.getDate();
         return date;
     }
+  
+    public void setDateBirthDay(Date birthDay) {
+        DateChooserBirthDay.setDate(birthDay);
+    }
     
     public String getName() {
         return TextFieldName.getText();
+    }
+    
+    public void setName(String name) {
+        TextFieldName.setText(name);
     }
     
     public String getSurname() {
         return TextFieldSurname.getText();
     }
     
+    public void setSurname(String surname) {
+        TextFieldSurname.setText(surname);
+    }
+    
     public long getPeselNumber() {
         return Long.parseLong(TextFieldPeselNumber.getText());
+    }
+    
+    public void setPeselNumber(long peselNumber) {
+        TextFieldPeselNumber.setText(Long.toString(peselNumber));
     }
     
     public String getEmail() {
         return TextFieldEmail.getText();
     }
     
+    public void setEmail(String email) {
+        TextFieldEmail.setText(email);
+    }
+    
     public String getAddress() {
         return TextFieldAddress.getText();
+    }
+    
+    public void setAddress(String address) {
+        TextFieldAddress.setText(address);
     }
     
     public boolean getGender() {
@@ -199,8 +223,21 @@ public class CustomerAddPanel extends javax.swing.JPanel {
         return RadioButtonMen.isSelected();
     }
     
+    public void setGender(boolean gender) {
+        if(gender) {
+            RadioButtonMen.setSelected(true);
+        }
+        else {
+            RadioButtonWomen.setSelected(true);
+        }
+    }
+    
     public double getBalance() {
         return (double) SpinnerBalance.getValue();
+    }
+    
+    public void setBalance(double balance) {
+        SpinnerBalance.setValue(balance);
     }
     
     private void ButtonAddCustomerDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAddCustomerDialogMouseClicked

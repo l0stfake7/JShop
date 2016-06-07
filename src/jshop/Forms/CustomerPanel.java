@@ -59,6 +59,10 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
             return customerMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
         }
     }
+    
+    private static void removeCustomer(Customer customer) {
+        customerMap.remove(customer.getId());
+    }
 
     /**
      * Creates new form MainFramePanel
@@ -134,7 +138,6 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
             customerChooseActionPanel = new CustomerChooseActionPanel();
             JDialog dialog = null;
             //show 
-            showMessageDialog(null, ListCustomers.getSelectedIndex());
             if (dialog == null) {
                 Window win = SwingUtilities.getWindowAncestor(this);
                 if (win != null) {
@@ -146,7 +149,6 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 }
             }
             dialog.setVisible(true); // here the modal dialog takes over
-            //if ListCustomers.getSelectedIndex() == -1 then only add customer
             //get clicked button
             if(customerChooseActionPanel.getChooseAction() == 1) {//add                    
                 dialog = null;
@@ -206,7 +208,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                                 "\nStan konta: " + cust.getBalance()
                     
                         );
-                        showMessageDialog(null, customerInfo); 
+                        showMessageDialog(this, customerInfo, "Informacje o kliencie", HEIGHT);
                     }
                     else {
                        showMessageDialog(null, "Nie ma takiego klienta!"); 
@@ -222,7 +224,38 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 if(globalIdCounter != 0) {  
                     Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
                     if(cust != null) {
+                        customerAddPanel = new CustomerAddPanel();
+                        if (dialog == null) {            
+                            Window win = SwingUtilities.getWindowAncestor(this);
+                            if (win != null) {
+                                dialog = new JDialog(win, "Edytuj klienta",
+                                        Dialog.ModalityType.APPLICATION_MODAL);
+                                dialog.getContentPane().add(customerAddPanel);
+                                dialog.pack();
+                                dialog.setLocationRelativeTo(null);
+                                
+                                //set data
+                                customerAddPanel.setName(cust.getName());
+                                customerAddPanel.setSurname(cust.getSurname());
+                                customerAddPanel.setPeselNumber(cust.getPeselNumber());
+                                customerAddPanel.setGender(cust.getGender());
+                                customerAddPanel.setDateBirthDay(cust.getDateOfBirth());
+                                customerAddPanel.setAddress(cust.getAddress());
+                                customerAddPanel.setEmail(cust.getEmailAddress());
+                                customerAddPanel.setBalance(cust.getBalance());
+                            }
+                        }
+                        dialog.setVisible(true); // here the modal dialog takes over
                         
+                        //save
+                        cust.setName(customerAddPanel.getName());
+                        cust.setSurname(customerAddPanel.getSurname());
+                        cust.setPeselNumber(customerAddPanel.getPeselNumber());
+                        cust.setGender(customerAddPanel.getGender());
+                        cust.setDateOfBirth(customerAddPanel.getDateBirthDay());
+                        cust.setAddress(customerAddPanel.getAddress());
+                        cust.setEmailAddress(customerAddPanel.getEmail());
+                        cust.setBalance(customerAddPanel.getBalance());
                     }
                     else {
                         showMessageDialog(null, "Brak klientów");
@@ -238,7 +271,17 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 if(globalIdCounter != 0) {  
                     Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
                     if(cust != null) {
-                        
+                        //remove from collection
+                        removeCustomer(cust);
+                        //reload list
+                        listModel.clear();
+                        for(int i = 0; i <= customerMap.size(); i++) {
+                            Customer customer = getCustomer(i);
+                            if(customer != null) {
+                                String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+                                listModel.addElement(sb);
+                            }                            
+                        }                      
                     }
                     else {
                         showMessageDialog(null, "Brak klientów");

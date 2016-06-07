@@ -9,8 +9,8 @@ package jshop.Enums;
  *
  * @author bartek
  */
-public enum OrderType {
-    buy,
-    sell,
-    exchange;    
+public enum ProductType {
+    dairy,
+    bread,
+    beverages;
 }

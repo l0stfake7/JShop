@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jshop.Enums;
+package jshop.Classes;
+
+import jshop.Enums.ProductType;
 
 /**
  *
  * @author bartek
  */
-public enum OrderType {
-    buy,
-    sell,
-    exchange;    
+public class Product {
+    private int Id;
+    private ProductType type;
+    private String name;    
 }

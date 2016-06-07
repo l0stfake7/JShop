@@ -7,6 +7,7 @@ package jshop.Forms;
 
 import java.awt.Dialog;
 import java.awt.Window;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -129,7 +130,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonCustomerActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerActionMouseClicked
-               try {
+        try {
             customerChooseActionPanel = new CustomerChooseActionPanel();
             JDialog dialog = null;
             //show 
@@ -147,10 +148,8 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
             dialog.setVisible(true); // here the modal dialog takes over
             //if ListCustomers.getSelectedIndex() == -1 then only add customer
             //get clicked button
-            final int selectedItem = ListCustomers.getSelectedIndex();
             if(customerChooseActionPanel.getChooseAction() == 1) {//add                    
                 dialog = null;
-                showMessageDialog(null, "add");
                 customerAddPanel = new CustomerAddPanel();
                 if (dialog == null) {            
                     Window win = SwingUtilities.getWindowAncestor(this);
@@ -189,9 +188,29 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
             }
             else if(customerChooseActionPanel.getChooseAction() == 2) {//show
                 dialog = null;
-                if(globalIdCounter != 0) {                        
-                    showMessageDialog(null, "show");
+                if(globalIdCounter != 0) {                            
                     //get id spinner from spinner
+                    Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
+                    if(cust != null) {
+                        String customerBirthDate = new SimpleDateFormat("yyyy-MM-dd").format(cust.getDateOfBirth());
+                        String customerInfo = new String(           
+                                "Id: " + cust.getId() + 
+                                "\nImię: " + cust.getName() + 
+                                "\nNazwisko: " + cust.getSurname() +
+                                "\nPesel: " + cust.getPeselNumber() +
+                                "\nPłeć: " + ((cust.getGender()) ? "Tak" : "Nie") +
+                                "\nData urodzin: " + customerBirthDate +
+                                "\nAdres: " + cust.getAddress() +
+                                "\nAdres email: " + cust.getEmailAddress() +
+                                "\nData rejestracji: " + cust.getSurname() +
+                                "\nStan konta: " + cust.getBalance()
+                    
+                        );
+                        showMessageDialog(null, customerInfo); 
+                    }
+                    else {
+                       showMessageDialog(null, "Nie ma takiego klienta!"); 
+                    }                    
                 }
                 else {
                     showMessageDialog(null, "Brak klientów");
@@ -200,8 +219,14 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
             }
             else if(customerChooseActionPanel.getChooseAction() == 3 && globalIdCounter != 0) {//edit
                 dialog = null;
-                if(globalIdCounter != 0) {                        
-                    showMessageDialog(null, "edit");
+                if(globalIdCounter != 0) {  
+                    Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
+                    if(cust != null) {
+                        
+                    }
+                    else {
+                        showMessageDialog(null, "Brak klientów");
+                    }
                 }
                 else {
                     showMessageDialog(null, "Brak klientów");
@@ -210,9 +235,14 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
             }
             else if(customerChooseActionPanel.getChooseAction() == 4 && globalIdCounter != 0) {//remove
                 dialog = null;
-                if(globalIdCounter != 0) {                        
-                    showMessageDialog(null, "remove");
-                    listModel.removeElementAt(selectedItem);
+                if(globalIdCounter != 0) {  
+                    Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
+                    if(cust != null) {
+                        
+                    }
+                    else {
+                        showMessageDialog(null, "Brak klientów");
+                    }
                 }
                 else {
                     showMessageDialog(null, "Brak klientów");
@@ -220,8 +250,11 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 dialog = null; 
             }
         }
-        catch (Exception e) {
-            
+        catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (ShopException ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
         }  
 
     }//GEN-LAST:event_ButtonCustomerActionMouseClicked

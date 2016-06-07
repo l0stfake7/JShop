@@ -74,7 +74,7 @@ public class Person {
         this.peselNumber = peselNumber;
     }
 
-    public boolean isGender() {
+    public boolean getGender() {
         return gender;
     }
 

@@ -36,7 +36,7 @@ public class MainFramePanel extends javax.swing.JPanel {
 
     private static Map<Integer, Customer> customerMap;
     private static Map<Integer, Integer> listCustomerBind;//Customer Id, Id from jList
-
+    //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
     private static void addCustomer(Customer cust) {
         customerMap.put(cust.getId(), cust);
     }

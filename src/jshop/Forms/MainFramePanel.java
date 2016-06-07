@@ -19,12 +19,15 @@ import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.ShopException;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
+import jshop.Classes.Order;
 
 /**
  *
  * @author bartek
  */
-public class MainFramePanel extends javax.swing.JPanel {
+public class MainFramePanel extends javax.swing.JPanel implements ListModel<Order> {
     
     private CustomerAddPanel customerAddPanel;
     private CustomerChooseActionPanel customerChooseActionPanel;
@@ -34,8 +37,15 @@ public class MainFramePanel extends javax.swing.JPanel {
     
     DefaultListModel<String> listModel = new DefaultListModel<>();
 
+    //collections
+    /**
+     * products - list
+     * customers - list
+     * orders - hasmap
+     */
     private static Map<Integer, Customer> customerMap;
     private static Map<Integer, Integer> listCustomerBind;//Customer Id, Id from jList
+    
     //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
     private static void addCustomer(Customer cust) {
         customerMap.put(cust.getId(), cust);
@@ -226,4 +236,24 @@ public class MainFramePanel extends javax.swing.JPanel {
     private javax.swing.JList<String> ListCustomers;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public int getSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Order getElementAt(int index) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addListDataListener(ListDataListener l) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeListDataListener(ListDataListener l) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

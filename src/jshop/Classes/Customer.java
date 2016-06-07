@@ -12,21 +12,21 @@ import java.util.Date;
  * @author bartek
  */
 public class Customer extends Person {
+    
     //fields
     private Date registerDate;
     private double balance;
 
     //constructors
-
-    public Customer() {
-
-    }
     public Customer(int id, String name, String surname, long peselNumber, boolean gender, Date dateOfBirth, String address, String emailAddress, Date registerDate, double balance) {
         super(id, name, surname, peselNumber, gender, dateOfBirth, address, emailAddress);
         this.setRegisterDate(registerDate);
         this.setBalance(balance);
     }
-
+    
+    //methods
+    
+    //getters & setters
     public Date getRegisterDate() {
         return registerDate;
     }
@@ -42,7 +42,4 @@ public class Customer extends Person {
     public void setBalance(double balance) {
         this.balance = balance;
     }
-
-    //methods
-
 }

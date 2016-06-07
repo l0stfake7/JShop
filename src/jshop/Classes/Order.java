@@ -14,6 +14,7 @@ import jshop.Enums.OrderType;
  */
 public class Order {
     
+    //fields
     private int Id;
     private OrderType type;
     private double price;
@@ -22,10 +23,20 @@ public class Order {
     private Date realizationDate;
     private Product product;
     
-    private Order () {
-        
+    //constructors
+    private Order (int Id, OrderType type, double price, Customer customer, Date orderDate, Date realizationDate, Product product) {
+        this.Id = Id;
+        this.type = type;
+        this.price = price;
+        this.customer = customer;
+        this.orderDate = orderDate;
+        this.realizationDate = realizationDate;
+        this.product = product;
     }
     
+    //methods
+    
+    //getters & setters
     /**
      * @return the Id
      */

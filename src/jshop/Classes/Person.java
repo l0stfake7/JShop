@@ -12,6 +12,7 @@ import java.util.Date;
  * @author bartek
  */
 public class Person {
+    
     //fields
     private int id;
     private String name;
@@ -38,6 +39,8 @@ public class Person {
         this.setEmailAddress(emailAddress);
     }
 
+    //methods
+    
     //getters & setters
     public int getId() {
         return id;
@@ -102,6 +105,4 @@ public class Person {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-
-    //methods
 }

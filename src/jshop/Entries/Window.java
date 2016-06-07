@@ -6,7 +6,8 @@
 package jshop.Entries;
 
 import javax.swing.JFrame;
-import jshop.Forms.MainFramePanel;
+import jshop.Forms.CustomerPanel;
+import jshop.Forms.MainPanel;
 
 /**
  *
@@ -16,7 +17,7 @@ public class Window {
     
     private static void createAndShowUI() {
       JFrame frame = new JFrame("MainFrame");
-      frame.getContentPane().add(new MainFramePanel());
+      frame.getContentPane().add(new MainPanel());
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.pack();
       frame.setLocationRelativeTo(null);

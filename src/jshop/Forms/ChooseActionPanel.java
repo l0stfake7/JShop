@@ -50,6 +50,10 @@ public class ChooseActionPanel extends javax.swing.JPanel {
         ButtonRemoveAction.setText(text);
     }
     
+    public void HideRealizeButton() {
+        ButtonRealize.setVisible(false);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,32 +68,40 @@ public class ChooseActionPanel extends javax.swing.JPanel {
         ButtonRemoveAction = new javax.swing.JButton();
         ButtonAddAction = new javax.swing.JButton();
         ButtonShowAction = new javax.swing.JButton();
+        ButtonRealize = new javax.swing.JButton();
 
-        ButtonEditAction.setText("Edytuj klienta");
+        ButtonEditAction.setText("Edytuj zamówienie");
         ButtonEditAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonEditActionMouseClicked(evt);
             }
         });
 
-        ButtonRemoveAction.setText("Usuń klienta");
+        ButtonRemoveAction.setText("Usuń zamówienie");
         ButtonRemoveAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonRemoveActionMouseClicked(evt);
             }
         });
 
-        ButtonAddAction.setText("Dodaj klienta");
+        ButtonAddAction.setText("Dodaj zamówienie");
         ButtonAddAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonAddActionMouseClicked(evt);
             }
         });
 
-        ButtonShowAction.setText("Zobacz klienta");
+        ButtonShowAction.setText("Zobacz zamówienie");
         ButtonShowAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonShowActionMouseClicked(evt);
+            }
+        });
+
+        ButtonRealize.setText("Zrealizuj zamówienie");
+        ButtonRealize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonRealizeMouseClicked(evt);
             }
         });
 
@@ -99,29 +111,28 @@ public class ChooseActionPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButtonAddAction, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonShowAction))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButtonEditAction, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonRemoveAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonRealize, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(ButtonRemoveAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonEditAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonShowAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonAddAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonAddAction)
-                    .addComponent(ButtonShowAction))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonEditAction)
-                    .addComponent(ButtonRemoveAction))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(ButtonAddAction)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonShowAction)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonEditAction)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonRemoveAction)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonRealize)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -146,10 +157,17 @@ public class ChooseActionPanel extends javax.swing.JPanel {
         showParentWindow();
     }//GEN-LAST:event_ButtonShowActionMouseClicked
 
+    private void ButtonRealizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRealizeMouseClicked
+        chooseAction = 5;
+        showParentWindow();
+        
+    }//GEN-LAST:event_ButtonRealizeMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAddAction;
     private javax.swing.JButton ButtonEditAction;
+    private javax.swing.JButton ButtonRealize;
     private javax.swing.JButton ButtonRemoveAction;
     private javax.swing.JButton ButtonShowAction;
     // End of variables declaration//GEN-END:variables

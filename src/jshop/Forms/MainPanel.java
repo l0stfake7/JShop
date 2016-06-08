@@ -16,6 +16,7 @@ public class MainPanel extends javax.swing.JPanel {
  * zrobic wyjatki
  * gdy usuwany klient lub produkt to sprawic powiazane zlecenia
  * graniczne punkty, puste formularze, parsowanie peselu
+ * maksymalna wartosc spinnera jako wielkosc counter obiektow
  */
     /**
      * Creates new form MainPanel
@@ -33,12 +34,14 @@ public class MainPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        customerPanel1 = new jshop.Forms.CustomerPanel();
-        productPanel2 = new jshop.Forms.ProductPanel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        customerPanel2 = new jshop.Forms.CustomerPanel();
+        productPanel1 = new jshop.Forms.ProductPanel();
+        orderPanel1 = new jshop.Forms.OrderPanel();
 
-        jTabbedPane1.addTab("Klienci", customerPanel1);
-        jTabbedPane1.addTab("Produkty", productPanel2);
+        jTabbedPane2.addTab("Klienci", customerPanel2);
+        jTabbedPane2.addTab("Produkty", productPanel1);
+        jTabbedPane2.addTab("Zamówienia", orderPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -46,22 +49,23 @@ public class MainPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private jshop.Forms.CustomerPanel customerPanel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private jshop.Forms.ProductPanel productPanel2;
+    private jshop.Forms.CustomerPanel customerPanel2;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private jshop.Forms.OrderPanel orderPanel1;
+    private jshop.Forms.ProductPanel productPanel1;
     // End of variables declaration//GEN-END:variables
 }

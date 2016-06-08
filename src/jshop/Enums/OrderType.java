@@ -10,7 +10,17 @@ package jshop.Enums;
  * @author bartek
  */
 public enum OrderType {
-    buy,
-    sell,
-    exchange;    
+    kupno,
+    sprzedaż,
+    wymiana;   
+    
+    @Override
+    public String toString() {
+        switch(this) {
+        case kupno: return "kupno";
+        case sprzedaż: return "sprzedaż";
+        case wymiana: return "wymiana";
+        default: throw new IllegalArgumentException();
+        }
+    }
 }

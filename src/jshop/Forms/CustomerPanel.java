@@ -120,9 +120,9 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(LabelCustomerId)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SpinnerCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(ButtonCustomerAction, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(SpinnerCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(ButtonCustomerAction, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -154,6 +154,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                     customerChooseActionPanel.ButtonShowSetText("Zobacz klienta");
                     customerChooseActionPanel.ButtonEditSetText("Edytuj klienta");
                     customerChooseActionPanel.ButtonRemoveSetText("Usuń klienta");
+                    customerChooseActionPanel.HideRealizeButton();
                     dialog.pack();
                     dialog.setLocationRelativeTo(null);
                 }

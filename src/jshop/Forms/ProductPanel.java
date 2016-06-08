@@ -132,6 +132,7 @@ public class ProductPanel extends javax.swing.JPanel {
                     productChooseActionPanel.ButtonShowSetText("Zobacz produkt");
                     productChooseActionPanel.ButtonEditSetText("Edytuj produkt");
                     productChooseActionPanel.ButtonRemoveSetText("Usuń produkt");
+                    productChooseActionPanel.HideRealizeButton();
                     dialog.pack();
                     dialog.setLocationRelativeTo(null);
                 }

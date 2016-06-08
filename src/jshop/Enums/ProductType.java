@@ -10,16 +10,16 @@ package jshop.Enums;
  * @author bartek
  */
 public enum ProductType {
-    dairy,
-    bread,
-    beverages;
+    pieczywo,
+    nabial,
+    napoje;
     
   @Override
   public String toString() {
     switch(this) {
-      case dairy: return "dairy";
-      case bread: return "bread";
-      case beverages: return "beverages";
+      case pieczywo: return "pieczywo";
+      case nabial: return "nabial";
+      case napoje: return "napoje";
       default: throw new IllegalArgumentException();
     }
   }

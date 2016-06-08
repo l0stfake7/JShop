@@ -6,6 +6,7 @@
 package jshop.Classes;
 
 import java.util.Date;
+import java.util.List;
 import jshop.Enums.OrderType;
 
 /**
@@ -17,21 +18,19 @@ public class Order {
     //fields
     private int Id;
     private OrderType type;
-    private double price;
     private Customer customer;
     private Date orderDate;
     private Date realizationDate;
-    private Product product;
+    private List<Product> product;
     
     //constructors
-    private Order (int Id, OrderType type, double price, Customer customer, Date orderDate, Date realizationDate, Product product) {
+    private Order (int Id, OrderType type, Customer customer, Date orderDate, Date realizationDate, List<Product> product) {
         this.Id = Id;
         this.type = type;
-        this.price = price;
         this.customer = customer;
         this.orderDate = orderDate;
         this.realizationDate = realizationDate;
-        this.product = product;
+        this.product =  product;
     }
     
     //methods
@@ -63,20 +62,6 @@ public class Order {
      */
     public void setType(OrderType type) {
         this.type = type;
-    }
-
-    /**
-     * @return the price
-     */
-    public double getPrice() {
-        return price;
-    }
-
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     /**
@@ -124,14 +109,14 @@ public class Order {
     /**
      * @return the product
      */
-    public Product getProduct() {
+    public List<Product> getProduct() {
         return product;
     }
 
     /**
      * @param product the product to set
      */
-    public void setProduct(Product product) {
+    public void setProduct(List<Product> product) {
         this.product = product;
     }
 }

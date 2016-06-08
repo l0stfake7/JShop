@@ -25,6 +25,18 @@ import javax.swing.event.ListDataListener;
 import jshop.Classes.Order;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -32,8 +44,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Order>*/ {
     
-    private CustomerAddPanel customerAddPanel;
-    private CustomerChooseActionPanel customerChooseActionPanel;
+    private CustomerFormPanel customerAddPanel;
+    private ChooseActionPanel customerChooseActionPanel;
     
     private int globalIdCounter = 0;//Customers Id    
     
@@ -135,7 +147,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
 
     private void ButtonCustomerActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerActionMouseClicked
         try {
-            customerChooseActionPanel = new CustomerChooseActionPanel();
+            customerChooseActionPanel = new ChooseActionPanel();
             JDialog dialog = null;
             //show 
             if (dialog == null) {
@@ -152,7 +164,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
             //get clicked button
             if(customerChooseActionPanel.getChooseAction() == 1) {//add                    
                 dialog = null;
-                customerAddPanel = new CustomerAddPanel();
+                customerAddPanel = new CustomerFormPanel();
                 if (dialog == null) {            
                     Window win = SwingUtilities.getWindowAncestor(this);
                     if (win != null) {
@@ -224,13 +236,14 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 if(globalIdCounter != 0) {  
                     Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
                     if(cust != null) {
-                        customerAddPanel = new CustomerAddPanel();
+                        customerAddPanel = new CustomerFormPanel();
                         if (dialog == null) {            
                             Window win = SwingUtilities.getWindowAncestor(this);
                             if (win != null) {
                                 dialog = new JDialog(win, "Edytuj klienta",
                                         Dialog.ModalityType.APPLICATION_MODAL);
                                 dialog.getContentPane().add(customerAddPanel);
+                                customerAddPanel.setButtonText("Edytuj klienta");
                                 dialog.pack();
                                 dialog.setLocationRelativeTo(null);
                                 

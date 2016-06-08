@@ -16,7 +16,7 @@ import jshop.Forms.MainPanel;
 public class Window {
     
     private static void createAndShowUI() {
-      JFrame frame = new JFrame("MainFrame");
+      JFrame frame = new JFrame("JShop");
       frame.getContentPane().add(new MainPanel());
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.pack();

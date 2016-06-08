@@ -12,13 +12,13 @@ import javax.swing.SwingUtilities;
  *
  * @author bartek
  */
-public class CustomerChooseActionPanel extends javax.swing.JPanel {
+public class ChooseActionPanel extends javax.swing.JPanel {
 
     private short chooseAction;
     /**
      * Creates new form CustomerChooseActionPanel
      */
-    public CustomerChooseActionPanel() throws InterruptedException {
+    public ChooseActionPanel() throws InterruptedException {
         initComponents();        
         chooseAction = 0;
     }

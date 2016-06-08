@@ -13,12 +13,12 @@ import javax.swing.SwingUtilities;
  *
  * @author bartek
  */
-public class CustomerAddPanel extends javax.swing.JPanel {
+public class CustomerFormPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form CustomerAddPanel
      */
-    public CustomerAddPanel() {
+    public CustomerFormPanel() {
         initComponents();
     }
 
@@ -238,6 +238,10 @@ public class CustomerAddPanel extends javax.swing.JPanel {
     
     public void setBalance(double balance) {
         SpinnerBalance.setValue(balance);
+    }
+    
+    public void setButtonText(String text) {
+        ButtonAddCustomerDialog.setText(text);
     }
     
     private void ButtonAddCustomerDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAddCustomerDialogMouseClicked

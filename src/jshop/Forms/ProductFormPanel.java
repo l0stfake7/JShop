@@ -5,23 +5,21 @@
  */
 package jshop.Forms;
 
-
 /**
  *
  * @author bartek
  */
-public class MainPanel extends javax.swing.JPanel {
-//TODO:
-/**
- * zrobic wyjatki
- * gdy usuwany klient lub produkt to sprawic powiazane zlecenia
- * graniczne punkty, puste formularze, parsowanie peselu
- */
+public class ProductFormPanel extends javax.swing.JPanel {
+
     /**
-     * Creates new form MainPanel
+     * Creates new form ProductFormPanel
      */
-    public MainPanel() {
+    public ProductFormPanel() {
         initComponents();
+    }
+    
+    public void setButtonText(String text) {
+        ButtonActionProductDialog.setText(text);
     }
 
     /**
@@ -33,35 +31,19 @@ public class MainPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        customerPanel1 = new jshop.Forms.CustomerPanel();
-        productPanel2 = new jshop.Forms.ProductPanel();
-
-        jTabbedPane1.addTab("Klienci", customerPanel1);
-        jTabbedPane1.addTab("Produkty", productPanel2);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private jshop.Forms.CustomerPanel customerPanel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private jshop.Forms.ProductPanel productPanel2;
     // End of variables declaration//GEN-END:variables
 }

@@ -156,6 +156,10 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                     dialog = new JDialog(win, "Wybierz akcję",
                             Dialog.ModalityType.APPLICATION_MODAL);
                     dialog.getContentPane().add(customerChooseActionPanel);
+                    customerChooseActionPanel.ButtonAddSetText("Dodaj klienta");
+                    customerChooseActionPanel.ButtonShowSetText("Zobacz klienta");
+                    customerChooseActionPanel.ButtonEditSetText("Edytuj klienta");
+                    customerChooseActionPanel.ButtonRemoveSetText("Usuń klienta");
                     dialog.pack();
                     dialog.setLocationRelativeTo(null);
                 }

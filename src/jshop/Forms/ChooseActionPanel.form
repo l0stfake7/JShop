@@ -20,14 +20,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="ButtonCustomerAdd" min="-2" pref="139" max="-2" attributes="0"/>
+                      <Component id="ButtonAddAction" min="-2" pref="139" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="ButtonCustomerShow" min="-2" max="-2" attributes="0"/>
+                      <Component id="ButtonShowAction" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="ButtonCustomerEdit" min="-2" pref="139" max="-2" attributes="0"/>
+                      <Component id="ButtonEditAction" min="-2" pref="139" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="ButtonCustomerRemove" max="32767" attributes="0"/>
+                      <Component id="ButtonRemoveAction" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -39,13 +39,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ButtonCustomerAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ButtonCustomerShow" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ButtonAddAction" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ButtonShowAction" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ButtonCustomerEdit" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ButtonCustomerRemove" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ButtonEditAction" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ButtonRemoveAction" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -53,36 +53,36 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="ButtonCustomerEdit">
+    <Component class="javax.swing.JButton" name="ButtonEditAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="Edytuj klienta"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonCustomerEditMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonEditActionMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="ButtonCustomerRemove">
+    <Component class="javax.swing.JButton" name="ButtonRemoveAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="Usu&#x144; klienta"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonCustomerRemoveMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonRemoveActionMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="ButtonCustomerAdd">
+    <Component class="javax.swing.JButton" name="ButtonAddAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="Dodaj klienta"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonCustomerAddMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonAddActionMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="ButtonCustomerShow">
+    <Component class="javax.swing.JButton" name="ButtonShowAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="Zobacz klienta"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonCustomerShowMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonShowActionMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

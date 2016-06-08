@@ -34,6 +34,22 @@ public class ChooseActionPanel extends javax.swing.JPanel {
         }
     }
     
+    public void ButtonAddSetText(String text) {
+        ButtonAddAction.setText(text);
+    }
+    
+    public void ButtonShowSetText(String text) {
+        ButtonShowAction.setText(text);
+    }
+        
+    public void ButtonEditSetText(String text) {
+        ButtonEditAction.setText(text);
+    }
+            
+    public void ButtonRemoveSetText(String text) {
+        ButtonRemoveAction.setText(text);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,36 +60,36 @@ public class ChooseActionPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ButtonCustomerEdit = new javax.swing.JButton();
-        ButtonCustomerRemove = new javax.swing.JButton();
-        ButtonCustomerAdd = new javax.swing.JButton();
-        ButtonCustomerShow = new javax.swing.JButton();
+        ButtonEditAction = new javax.swing.JButton();
+        ButtonRemoveAction = new javax.swing.JButton();
+        ButtonAddAction = new javax.swing.JButton();
+        ButtonShowAction = new javax.swing.JButton();
 
-        ButtonCustomerEdit.setText("Edytuj klienta");
-        ButtonCustomerEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+        ButtonEditAction.setText("Edytuj klienta");
+        ButtonEditAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonCustomerEditMouseClicked(evt);
+                ButtonEditActionMouseClicked(evt);
             }
         });
 
-        ButtonCustomerRemove.setText("Usuń klienta");
-        ButtonCustomerRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+        ButtonRemoveAction.setText("Usuń klienta");
+        ButtonRemoveAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonCustomerRemoveMouseClicked(evt);
+                ButtonRemoveActionMouseClicked(evt);
             }
         });
 
-        ButtonCustomerAdd.setText("Dodaj klienta");
-        ButtonCustomerAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+        ButtonAddAction.setText("Dodaj klienta");
+        ButtonAddAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonCustomerAddMouseClicked(evt);
+                ButtonAddActionMouseClicked(evt);
             }
         });
 
-        ButtonCustomerShow.setText("Zobacz klienta");
-        ButtonCustomerShow.addMouseListener(new java.awt.event.MouseAdapter() {
+        ButtonShowAction.setText("Zobacz klienta");
+        ButtonShowAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonCustomerShowMouseClicked(evt);
+                ButtonShowActionMouseClicked(evt);
             }
         });
 
@@ -85,13 +101,13 @@ public class ChooseActionPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButtonCustomerAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonAddAction, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonCustomerShow))
+                        .addComponent(ButtonShowAction))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButtonCustomerEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonEditAction, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonCustomerRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(ButtonRemoveAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,42 +115,42 @@ public class ChooseActionPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonCustomerAdd)
-                    .addComponent(ButtonCustomerShow))
+                    .addComponent(ButtonAddAction)
+                    .addComponent(ButtonShowAction))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonCustomerEdit)
-                    .addComponent(ButtonCustomerRemove))
+                    .addComponent(ButtonEditAction)
+                    .addComponent(ButtonRemoveAction))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void ButtonCustomerEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerEditMouseClicked
+    private void ButtonEditActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonEditActionMouseClicked
         chooseAction = 3;
         showParentWindow();
-    }//GEN-LAST:event_ButtonCustomerEditMouseClicked
+    }//GEN-LAST:event_ButtonEditActionMouseClicked
 
-    private void ButtonCustomerRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerRemoveMouseClicked
+    private void ButtonRemoveActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRemoveActionMouseClicked
         chooseAction = 4;
         showParentWindow();
-    }//GEN-LAST:event_ButtonCustomerRemoveMouseClicked
+    }//GEN-LAST:event_ButtonRemoveActionMouseClicked
 
-    private void ButtonCustomerAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerAddMouseClicked
+    private void ButtonAddActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAddActionMouseClicked
         chooseAction = 1;
         showParentWindow();
-    }//GEN-LAST:event_ButtonCustomerAddMouseClicked
+    }//GEN-LAST:event_ButtonAddActionMouseClicked
 
-    private void ButtonCustomerShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerShowMouseClicked
+    private void ButtonShowActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonShowActionMouseClicked
         chooseAction = 2;
         showParentWindow();
-    }//GEN-LAST:event_ButtonCustomerShowMouseClicked
+    }//GEN-LAST:event_ButtonShowActionMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonCustomerAdd;
-    private javax.swing.JButton ButtonCustomerEdit;
-    private javax.swing.JButton ButtonCustomerRemove;
-    private javax.swing.JButton ButtonCustomerShow;
+    private javax.swing.JButton ButtonAddAction;
+    private javax.swing.JButton ButtonEditAction;
+    private javax.swing.JButton ButtonRemoveAction;
+    private javax.swing.JButton ButtonShowAction;
     // End of variables declaration//GEN-END:variables
 }

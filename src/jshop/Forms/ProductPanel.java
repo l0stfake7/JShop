@@ -5,17 +5,58 @@
  */
 package jshop.Forms;
 
+import java.awt.Dialog;
+import java.awt.Window;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.SwingUtilities;
+import jshop.Classes.Product;
+import jshop.Classes.ShopException;
+
 /**
  *
  * @author bartek
  */
 public class ProductPanel extends javax.swing.JPanel {
 
+    private ProductFormPanel productAddPanel;
+    private ChooseActionPanel productChooseActionPanel;
+    
+    private int globalIdCounter = 0;//Product Id    
+    
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+
+    private static Map<Integer, Product> productMap;
+    
+    //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
+    private static void addProduct(Product product) {
+        productMap.put(product.getId(), product);
+    }
+
+    private static Product getProduct(int id) throws ShopException {
+        if (productMap.get(id) == null) {
+            return null;//or throw new MyException("Not found object with id: " + id);//what is better?
+        } else {
+            return productMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
+        }
+    }
+    
+    private static void removeProduct(Product product) {
+        productMap.remove(product.getId());
+    }
     /**
      * Creates new form ProductPanel
      */
     public ProductPanel() {
         initComponents();
+        productMap = new HashMap<Integer, Product>();
     }
 
     /**
@@ -72,12 +113,155 @@ public class ProductPanel extends javax.swing.JPanel {
                     .addComponent(LabelProductId)
                     .addComponent(ButtonProductAction)
                     .addComponent(SpinnerProductId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonProductActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductActionMouseClicked
-        // TODO add your handling code here:
+        try {
+            productChooseActionPanel = new ChooseActionPanel();
+            JDialog dialog = null;
+            //show 
+            if (dialog == null) {
+                Window win = SwingUtilities.getWindowAncestor(this);
+                if (win != null) {
+                    dialog = new JDialog(win, "Wybierz akcję",
+                            Dialog.ModalityType.APPLICATION_MODAL);
+                    dialog.getContentPane().add(productChooseActionPanel);
+                    productChooseActionPanel.ButtonAddSetText("Dodaj produkt");
+                    productChooseActionPanel.ButtonShowSetText("Zobacz produkt");
+                    productChooseActionPanel.ButtonEditSetText("Edytuj produkt");
+                    productChooseActionPanel.ButtonRemoveSetText("Usuń produkt");
+                    dialog.pack();
+                    dialog.setLocationRelativeTo(null);
+                }
+            }
+            dialog.setVisible(true); // here the modal dialog takes over
+            //get clicked button
+            if(productChooseActionPanel.getChooseAction() == 1) {//add                    
+                dialog = null;
+                productAddPanel = new ProductFormPanel();
+                if (dialog == null) {            
+                    Window win = SwingUtilities.getWindowAncestor(this);
+                    if (win != null) {
+                        dialog = new JDialog(win, "Dodaj produkt",
+                                Dialog.ModalityType.APPLICATION_MODAL);
+                        dialog.getContentPane().add(productAddPanel);
+                        dialog.pack();
+                        dialog.setLocationRelativeTo(null);
+                    }
+                }
+                dialog.setVisible(true); // here the modal dialog takes over
+                //TODO check if datas from form is not null
+                //get values from fields by getters      
+                Date todayDate = new Date();
+
+                Product product = new Product(globalIdCounter,
+                        productAddPanel.getType(),
+                        productAddPanel.getName()
+                );
+                //add to collection
+                addProduct(product);
+                //listCustomerBind.put(product.getId(), listItemsCounter);
+
+                //add to list
+                String sb = product.getName() + " [" + product.getType() + "] (id: " + product.getId() + ")";
+                listModel.addElement(sb);
+                globalIdCounter++;
+            }
+            else if(productChooseActionPanel.getChooseAction() == 2) {//show
+                dialog = null;
+                if(globalIdCounter != 0) {                            
+                    //get id spinner from spinner
+                    Product product = getProduct((int) SpinnerProductId.getValue());
+                    if(product != null) {
+                        
+                        String productInfo = new String(           
+                                "Id: " + product.getId() + 
+                                "\nNazwa: " + product.getName() + 
+                                "\Typ: " + product.getType()
+                    
+                        );
+                        showMessageDialog(this, productInfo, "Informacje o produkcie", HEIGHT);
+                    }
+                    else {
+                       showMessageDialog(null, "Nie ma takiego produktu!"); 
+                    }                    
+                }
+                else {
+                    showMessageDialog(null, "Brak produktów");
+                }
+                dialog = null;                    
+            }
+            else if(productChooseActionPanel.getChooseAction() == 3 && globalIdCounter != 0) {//edit
+                dialog = null;
+                if(globalIdCounter != 0) {  
+                    Product product = getProduct((int) SpinnerProductId.getValue());
+                    if(product != null) {
+                        productAddPanel = new ProductFormPanel();
+                        if (dialog == null) {            
+                            Window win = SwingUtilities.getWindowAncestor(this);
+                            if (win != null) {
+                                dialog = new JDialog(win, "Edytuj produkt",
+                                        Dialog.ModalityType.APPLICATION_MODAL);
+                                dialog.getContentPane().add(productAddPanel);
+                                productAddPanel.setButtonText("Edytuj produkt");
+                                dialog.pack();
+                                dialog.setLocationRelativeTo(null);
+                                
+                                //set data
+                                productAddPanel.setName(product.getName());
+                                productAddPanel.setType(product.getType());
+                            }
+                        }
+                        dialog.setVisible(true); // here the modal dialog takes over
+                        
+                        //save
+                        product.setName(productAddPanel.getName());
+                        product.setType(productAddPanel.getType());
+                    }
+                    else {
+                        showMessageDialog(null, "Brak produktów");
+                    }
+                }
+                else {
+                    showMessageDialog(null, "Brak produktów");
+                }
+                dialog = null; 
+            }
+            else if(productChooseActionPanel.getChooseAction() == 4 && globalIdCounter != 0) {//remove
+                dialog = null;
+                if(globalIdCounter != 0) {  
+                    Product product = getProduct((int) SpinnerProductId.getValue());
+                    if(product != null) {
+                        //remove from collection
+                        removeProduct(product);
+                        //reload list
+                        listModel.clear();
+                        for(int i = 0; i <= productMap.size(); i++) {
+                            Product tempProduct = getProduct(i);
+                            if(tempProduct != null) {
+                                String sb = tempProduct.getName() + " [" + tempProduct.getType() + "] (id: " + tempProduct.getId() + ")";
+                                listModel.addElement(sb);
+                            }                            
+                        }                      
+                    }
+                    else {
+                        showMessageDialog(null, "Brak produktów");
+                    }
+                }
+                else {
+                    showMessageDialog(null, "Brak produktów");
+                }
+                dialog = null; 
+            }
+        }
+        catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (ShopException ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ButtonProductActionMouseClicked
 
 

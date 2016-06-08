@@ -30,7 +30,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="ButtonAddCustomerDialog" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ButtonActionCustomerDialog" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="DateChooserBirthDay" alignment="1" min="-2" pref="242" max="-2" attributes="0"/>
@@ -64,7 +64,7 @@
                                   </Group>
                                   <Component id="TextFieldSurname" max="32767" attributes="0"/>
                                   <Component id="TextFieldPeselNumber" max="32767" attributes="0"/>
-                                  <Component id="TextFieldName" max="32767" attributes="0"/>
+                                  <Component id="TextFieldName" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -119,7 +119,7 @@
                   <Component id="LabelBalance" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="ButtonAddCustomerDialog" min="-2" max="-2" attributes="0"/>
+              <Component id="ButtonActionCustomerDialog" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -177,12 +177,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="TextFieldAddress">
     </Component>
-    <Component class="javax.swing.JButton" name="ButtonAddCustomerDialog">
+    <Component class="javax.swing.JButton" name="ButtonActionCustomerDialog">
       <Properties>
         <Property name="text" type="java.lang.String" value="Dodaj klienta"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonAddCustomerDialogMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonActionCustomerDialogMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TextFieldEmail">

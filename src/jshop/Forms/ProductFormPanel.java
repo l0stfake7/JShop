@@ -5,6 +5,11 @@
  */
 package jshop.Forms;
 
+import java.awt.Window;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingUtilities;
+import jshop.Enums.ProductType;
+
 /**
  *
  * @author bartek
@@ -21,6 +26,30 @@ public class ProductFormPanel extends javax.swing.JPanel {
     public void setButtonText(String text) {
         ButtonActionProductDialog.setText(text);
     }
+    
+    public String getName() {
+        return TextFieldName.getText();
+    }
+    
+    public void setName(String name) {
+        TextFieldName.setText(name);
+    }
+    
+    public void setType(ProductType productType) {
+        ComboBoxType.setSelectedItem(productType.toString());
+    }
+    
+    public ProductType getType() {
+        return ProductType.valueOf(ComboBoxType.getSelectedItem().toString());
+    }
+    
+    public double getPrice() {
+        return (double) SpinnerPrice.getValue();
+    }
+    
+    public void setPrice(double price) {
+        SpinnerPrice.setValue(price);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,19 +60,86 @@ public class ProductFormPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        LabelName = new javax.swing.JLabel();
+        LabelType = new javax.swing.JLabel();
+        TextFieldName = new javax.swing.JTextField();
+        ComboBoxType = new javax.swing.JComboBox<>();
+        ButtonActionProductDialog = new javax.swing.JButton();
+        LabelPrice = new javax.swing.JLabel();
+        SpinnerPrice = new javax.swing.JSpinner();
+
+        LabelName.setText("Nazwa");
+
+        LabelType.setText("Typ");
+
+        ComboBoxType.setModel(new DefaultComboBoxModel(ProductType.values()));
+
+        ButtonActionProductDialog.setText("Dodaj produkt");
+        ButtonActionProductDialog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonActionProductDialogMouseClicked(evt);
+            }
+        });
+
+        LabelPrice.setText("Cena");
+
+        SpinnerPrice.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelName)
+                    .addComponent(LabelType)
+                    .addComponent(LabelPrice))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonActionProductDialog)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(TextFieldName)
+                        .addComponent(ComboBoxType, 0, 242, Short.MAX_VALUE)
+                        .addComponent(SpinnerPrice)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelName)
+                    .addComponent(TextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LabelType)
+                    .addComponent(ComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelPrice)
+                    .addComponent(SpinnerPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonActionProductDialog)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ButtonActionProductDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonActionProductDialogMouseClicked
+        Window window = SwingUtilities.getWindowAncestor(this);
+        if (window != null) {
+           window.dispose();
+        }
+    }//GEN-LAST:event_ButtonActionProductDialogMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonActionProductDialog;
+    private javax.swing.JComboBox<String> ComboBoxType;
+    private javax.swing.JLabel LabelName;
+    private javax.swing.JLabel LabelPrice;
+    private javax.swing.JLabel LabelType;
+    private javax.swing.JSpinner SpinnerPrice;
+    private javax.swing.JTextField TextFieldName;
     // End of variables declaration//GEN-END:variables
 }

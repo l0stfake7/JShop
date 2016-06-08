@@ -7,7 +7,6 @@ package jshop.Forms;
 
 import java.awt.Dialog;
 import java.awt.Window;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,6 +73,7 @@ public class ProductPanel extends javax.swing.JPanel {
         SpinnerProductId = new javax.swing.JSpinner();
         ButtonProductAction = new javax.swing.JButton();
 
+        ListProducts.setModel(listModel);
         jScrollPane1.setViewportView(ListProducts);
 
         LabelProductId.setText("Id:");
@@ -158,15 +158,16 @@ public class ProductPanel extends javax.swing.JPanel {
 
                 Product product = new Product(globalIdCounter,
                         productAddPanel.getType(),
-                        productAddPanel.getName()
+                        productAddPanel.getName(),
+                        productAddPanel.getPrice()
                 );
                 //add to collection
                 addProduct(product);
                 //listCustomerBind.put(product.getId(), listItemsCounter);
 
                 //add to list
-                String sb = product.getName() + " [" + product.getType() + "] (id: " + product.getId() + ")";
-                listModel.addElement(sb);
+                String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
+                listModel.addElement(productInfo);
                 globalIdCounter++;
             }
             else if(productChooseActionPanel.getChooseAction() == 2) {//show
@@ -179,7 +180,8 @@ public class ProductPanel extends javax.swing.JPanel {
                         String productInfo = new String(           
                                 "Id: " + product.getId() + 
                                 "\nNazwa: " + product.getName() + 
-                                "\Typ: " + product.getType()
+                                "\nTyp: " + product.getType().toString() +
+                                "\nCena: " + product.getPrice()
                     
                         );
                         showMessageDialog(this, productInfo, "Informacje o produkcie", HEIGHT);
@@ -212,6 +214,7 @@ public class ProductPanel extends javax.swing.JPanel {
                                 //set data
                                 productAddPanel.setName(product.getName());
                                 productAddPanel.setType(product.getType());
+                                productAddPanel.setPrice(product.getPrice());
                             }
                         }
                         dialog.setVisible(true); // here the modal dialog takes over
@@ -219,6 +222,16 @@ public class ProductPanel extends javax.swing.JPanel {
                         //save
                         product.setName(productAddPanel.getName());
                         product.setType(productAddPanel.getType());
+                        product.setPrice(productAddPanel.getPrice());
+                        
+                        listModel.clear();
+                        for(int i = 0; i <= productMap.size(); i++) {
+                            Product tempProduct = getProduct(i);
+                            if(tempProduct != null) {
+                                String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
+                                listModel.addElement(productInfo);
+                            }                            
+                        }
                     }
                     else {
                         showMessageDialog(null, "Brak produktów");
@@ -237,14 +250,14 @@ public class ProductPanel extends javax.swing.JPanel {
                         //remove from collection
                         removeProduct(product);
                         //reload list
-                        listModel.clear();
-                        for(int i = 0; i <= productMap.size(); i++) {
-                            Product tempProduct = getProduct(i);
-                            if(tempProduct != null) {
-                                String sb = tempProduct.getName() + " [" + tempProduct.getType() + "] (id: " + tempProduct.getId() + ")";
-                                listModel.addElement(sb);
-                            }                            
-                        }                      
+                                listModel.clear();
+                                for(int i = 0; i <= productMap.size(); i++) {
+                                    Product tempProduct = getProduct(i);
+                                    if(tempProduct != null) {
+                                        String sb = tempProduct.getName() + " [" + tempProduct.getType() + "] (id: " + tempProduct.getId() + ")";
+                                        listModel.addElement(sb);
+                                    }                            
+                                }
                     }
                     else {
                         showMessageDialog(null, "Brak produktów");

@@ -51,12 +51,6 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
     
     DefaultListModel<String> listModel = new DefaultListModel<>();
 
-    //collections
-    /**
-     * products - list
-     * customers - list
-     * orders - hasmap
-     */
     private static Map<Integer, Customer> customerMap;
     
     //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
@@ -200,8 +194,8 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 //listCustomerBind.put(customer.getId(), listItemsCounter);
 
                 //add to list
-                String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
-                listModel.addElement(sb);
+                String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+                listModel.addElement(customerInfo);
                 globalIdCounter++;
             }
             else if(customerChooseActionPanel.getChooseAction() == 2) {//show
@@ -273,6 +267,15 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                         cust.setAddress(customerAddPanel.getAddress());
                         cust.setEmailAddress(customerAddPanel.getEmail());
                         cust.setBalance(customerAddPanel.getBalance());
+                        
+                        listModel.clear();
+                        for(int i = 0; i <= customerMap.size(); i++) {
+                            Customer customer = getCustomer(i);
+                            if(customer != null) {
+                                String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+                                listModel.addElement(customerInfo);
+                            }                            
+                        } 
                     }
                     else {
                         showMessageDialog(null, "Brak klientów");
@@ -290,7 +293,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                     if(cust != null) {
                         //remove from collection
                         removeCustomer(cust);
-                        //reload list
+                        //reload list 
                         listModel.clear();
                         for(int i = 0; i <= customerMap.size(); i++) {
                             Customer customer = getCustomer(i);
@@ -298,7 +301,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                                 String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
                                 listModel.addElement(sb);
                             }                            
-                        }                      
+                        } 
                     }
                     else {
                         showMessageDialog(null, "Brak klientów");

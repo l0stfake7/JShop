@@ -17,12 +17,14 @@ public class Product {
     private int id;
     private ProductType type;
     private String name;
+    private double price;
 
     //constructors
-    public Product(int id, ProductType type, String name) {
+    public Product(int id, ProductType type, String name, double price) {
         this.id = id;
         this.type = type;
         this.name = name;
+        this.price = price;
     }
     
     //methods
@@ -68,5 +70,19 @@ public class Product {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the price
+     */
+    public double getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

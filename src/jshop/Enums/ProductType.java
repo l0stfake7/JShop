@@ -13,4 +13,14 @@ public enum ProductType {
     dairy,
     bread,
     beverages;
+    
+  @Override
+  public String toString() {
+    switch(this) {
+      case dairy: return "dairy";
+      case bread: return "bread";
+      case beverages: return "beverages";
+      default: throw new IllegalArgumentException();
+    }
+  }
 }

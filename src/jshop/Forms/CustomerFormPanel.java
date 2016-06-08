@@ -44,7 +44,7 @@ public class CustomerFormPanel extends javax.swing.JPanel {
         DateChooserBirthDay = new com.toedter.calendar.JDateChooser();
         LabelBalance = new javax.swing.JLabel();
         TextFieldAddress = new javax.swing.JTextField();
-        ButtonAddCustomerDialog = new javax.swing.JButton();
+        ButtonActionCustomerDialog = new javax.swing.JButton();
         TextFieldEmail = new javax.swing.JTextField();
         SpinnerBalance = new javax.swing.JSpinner();
         LabalName = new javax.swing.JLabel();
@@ -67,10 +67,10 @@ public class CustomerFormPanel extends javax.swing.JPanel {
 
         LabelBalance.setText("Saldo");
 
-        ButtonAddCustomerDialog.setText("Dodaj klienta");
-        ButtonAddCustomerDialog.addMouseListener(new java.awt.event.MouseAdapter() {
+        ButtonActionCustomerDialog.setText("Dodaj klienta");
+        ButtonActionCustomerDialog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonAddCustomerDialogMouseClicked(evt);
+                ButtonActionCustomerDialogMouseClicked(evt);
             }
         });
 
@@ -98,7 +98,7 @@ public class CustomerFormPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(ButtonAddCustomerDialog)
+                                        .addComponent(ButtonActionCustomerDialog)
                                         .addGap(154, 154, 154))
                                     .addComponent(DateChooserBirthDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
@@ -124,7 +124,7 @@ public class CustomerFormPanel extends javax.swing.JPanel {
                                         .addComponent(RadioButtonWomen))
                                     .addComponent(TextFieldSurname)
                                     .addComponent(TextFieldPeselNumber)
-                                    .addComponent(TextFieldName))))
+                                    .addComponent(TextFieldName, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -164,7 +164,7 @@ public class CustomerFormPanel extends javax.swing.JPanel {
                     .addComponent(SpinnerBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelBalance))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ButtonAddCustomerDialog)
+                .addComponent(ButtonActionCustomerDialog)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -241,19 +241,19 @@ public class CustomerFormPanel extends javax.swing.JPanel {
     }
     
     public void setButtonText(String text) {
-        ButtonAddCustomerDialog.setText(text);
+        ButtonActionCustomerDialog.setText(text);
     }
     
-    private void ButtonAddCustomerDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAddCustomerDialogMouseClicked
+    private void ButtonActionCustomerDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonActionCustomerDialogMouseClicked
         Window window = SwingUtilities.getWindowAncestor(this);
         if (window != null) {
            window.dispose();
         }
-    }//GEN-LAST:event_ButtonAddCustomerDialogMouseClicked
+    }//GEN-LAST:event_ButtonActionCustomerDialogMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonAddCustomerDialog;
+    private javax.swing.JButton ButtonActionCustomerDialog;
     private com.toedter.calendar.JDateChooser DateChooserBirthDay;
     private javax.swing.JLabel LabalName;
     private javax.swing.JLabel LabelAddress;

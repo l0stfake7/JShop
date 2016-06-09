@@ -154,6 +154,7 @@ public class OrderPanel extends javax.swing.JPanel {
                         dialog.getContentPane().add(orderAddPanel);
                         //set customers collection and products collection
                         orderAddPanel.setCustomer(CustomerPanel.getCustomerMap(), null);
+                        orderAddPanel.setProduct(ProductPanel.getProductMap(), null);
                         dialog.pack();
                         dialog.setLocationRelativeTo(null);
                     }

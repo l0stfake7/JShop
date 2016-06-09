@@ -6,9 +6,13 @@
 package jshop.Forms;
 
 import java.awt.Window;
+import java.util.List;
 import java.util.Map;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
+import jshop.Classes.Product;
 import jshop.Enums.OrderType;
 
 /**
@@ -17,12 +21,18 @@ import jshop.Enums.OrderType;
  */
 public class OrderFormPanel extends javax.swing.JPanel {
 
+    DefaultComboBoxModel<String> customerComboBoxModel;
+    DefaultComboBoxModel<String> productComboBoxModel;
+    DefaultListModel<String> productListModel;
     /**
      * Creates new form OrderFormPanel
      */
     public OrderFormPanel() {
-        initComponents();
-        CustomerPanel.getCustomerMap();
+        
+        customerComboBoxModel = new DefaultComboBoxModel<>();
+        productComboBoxModel = new DefaultComboBoxModel<>();
+        productListModel = new DefaultListModel<>();
+        initComponents();        
     }
     
     public void setType(OrderType orderType) {
@@ -41,10 +51,12 @@ public class OrderFormPanel extends javax.swing.JPanel {
                     customerMap.get(i).getSurname() + " [Id: " +
                     customerMap.get(i).getId() + "]"
                 );
-                ComboBoxType.addItem(customerInfo);
+                customerComboBoxModel.addElement(customerInfo);
             }            
         }
-        ComboBoxType.setSelectedItem(customer);
+        if(customer != null) {
+            ComboBoxCustomer.setSelectedItem(customer);
+        }        
     }
     
     //public Customer getCustomer() {
@@ -53,6 +65,28 @@ public class OrderFormPanel extends javax.swing.JPanel {
     //}
     
     //get&set products
+    public void setProduct(Map<Integer, Product> productMap, List<Product> product) {
+        for(int i = 0; i <= productMap.size(); i++) {
+            if (productMap.get(i) != null) {
+                String productInfo = new String(
+                    productMap.get(i).getName() + " " +
+                    productMap.get(i).getType() + " [Id: " +
+                    productMap.get(i).getId() + "]"
+                );
+                productComboBoxModel.addElement(productInfo);
+            }            
+        }  
+        if(product != null) {
+            for(int i = 0; i <= product.size(); i++) {
+                String productInfo = new String(
+                    productMap.get(i).getName() + " " +
+                    productMap.get(i).getType() + " [Id: " +
+                    productMap.get(i).getId() + "]"
+                );
+                productListModel.addElement(productInfo);
+            }
+        }
+    }
 
     public void setButtonText(String text) {
         ButtonActionOrderDialog.setText(text);
@@ -79,16 +113,24 @@ public class OrderFormPanel extends javax.swing.JPanel {
 
         LabelType.setText("Typ");
 
+        ComboBoxType.setModel(new DefaultComboBoxModel(OrderType.values()));
+
         LabelCustomer.setText("Klient");
+
+        ComboBoxCustomer.setModel(customerComboBoxModel);
 
         LabelProducts.setText("Produkty");
 
+        ComboBoxProducts.setModel(productComboBoxModel);
         ComboBoxProducts.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboBoxProductsItemStateChanged(evt);
             }
         });
 
+        ListProducts.setModel(productListModel);
+        ListProducts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ListProducts.setEnabled(false);
         jScrollPane1.setViewportView(ListProducts);
 
         ButtonActionOrderDialog.setText("Dodaj zamówienie");

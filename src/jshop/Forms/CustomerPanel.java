@@ -15,27 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.ShopException;
-import static javax.swing.JOptionPane.showMessageDialog;
-import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
-import jshop.Classes.Order;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -43,6 +25,13 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author bartek
  */
 public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Order>*/ {
+
+    /**
+     * @return the customerMap
+     */
+    public static Map<Integer, Customer> getCustomerMap() {
+        return customerMap;
+    }
     
     private CustomerFormPanel customerAddPanel;
     private ChooseActionPanel customerChooseActionPanel;
@@ -53,21 +42,23 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
 
     private static Map<Integer, Customer> customerMap;
     
+    
+    
     //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
     private static void addCustomer(Customer cust) {
-        customerMap.put(cust.getId(), cust);
+        getCustomerMap().put(cust.getId(), cust);
     }
 
     private static Customer getCustomer(int id) throws ShopException {
-        if (customerMap.get(id) == null) {
+        if (getCustomerMap().get(id) == null) {
             return null;//or throw new MyException("Not found object with id: " + id);//what is better?
         } else {
-            return customerMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
+            return getCustomerMap().get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
         }
     }
     
     private static void removeCustomer(Customer customer) {
-        customerMap.remove(customer.getId());
+        getCustomerMap().remove(customer.getId());
     }
 
     /**
@@ -270,7 +261,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                         cust.setBalance(customerAddPanel.getBalance());
                         
                         listModel.clear();
-                        for(int i = 0; i <= customerMap.size(); i++) {
+                        for(int i = 0; i <= getCustomerMap().size(); i++) {
                             Customer customer = getCustomer(i);
                             if(customer != null) {
                                 String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
@@ -296,7 +287,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                         removeCustomer(cust);
                         //reload list 
                         listModel.clear();
-                        for(int i = 0; i <= customerMap.size(); i++) {
+                        for(int i = 0; i <= getCustomerMap().size(); i++) {
                             Customer customer = getCustomer(i);
                             if(customer != null) {
                                 String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";

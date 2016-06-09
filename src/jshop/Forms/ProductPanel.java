@@ -25,6 +25,13 @@ import jshop.Classes.ShopException;
  */
 public class ProductPanel extends javax.swing.JPanel {
 
+    /**
+     * @return the productMap
+     */
+    public static Map<Integer, Product> getProductMap() {
+        return productMap;
+    }
+
     private ProductFormPanel productAddPanel;
     private ChooseActionPanel productChooseActionPanel;
     
@@ -36,19 +43,19 @@ public class ProductPanel extends javax.swing.JPanel {
     
     //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
     private static void addProduct(Product product) {
-        productMap.put(product.getId(), product);
+        getProductMap().put(product.getId(), product);
     }
 
     private static Product getProduct(int id) throws ShopException {
-        if (productMap.get(id) == null) {
+        if (getProductMap().get(id) == null) {
             return null;//or throw new MyException("Not found object with id: " + id);//what is better?
         } else {
-            return productMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
+            return getProductMap().get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
         }
     }
     
     private static void removeProduct(Product product) {
-        productMap.remove(product.getId());
+        getProductMap().remove(product.getId());
     }
     /**
      * Creates new form ProductPanel
@@ -226,7 +233,7 @@ public class ProductPanel extends javax.swing.JPanel {
                         product.setPrice(productAddPanel.getPrice());
                         
                         listModel.clear();
-                        for(int i = 0; i <= productMap.size(); i++) {
+                        for(int i = 0; i <= getProductMap().size(); i++) {
                             Product tempProduct = getProduct(i);
                             if(tempProduct != null) {
                                 String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
@@ -252,7 +259,7 @@ public class ProductPanel extends javax.swing.JPanel {
                         removeProduct(product);
                         //reload list
                                 listModel.clear();
-                                for(int i = 0; i <= productMap.size(); i++) {
+                                for(int i = 0; i <= getProductMap().size(); i++) {
                                     Product tempProduct = getProduct(i);
                                     if(tempProduct != null) {
                                         String sb = tempProduct.getName() + " [" + tempProduct.getType() + "] (id: " + tempProduct.getId() + ")";

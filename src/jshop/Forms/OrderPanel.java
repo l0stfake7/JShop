@@ -152,6 +152,8 @@ public class OrderPanel extends javax.swing.JPanel {
                         dialog = new JDialog(win, "Dodaj zamówienie",
                                 Dialog.ModalityType.APPLICATION_MODAL);
                         dialog.getContentPane().add(orderAddPanel);
+                        //set customers collection and products collection
+                        orderAddPanel.setCustomer(CustomerPanel.getCustomerMap(), null);
                         dialog.pack();
                         dialog.setLocationRelativeTo(null);
                     }
@@ -161,21 +163,23 @@ public class OrderPanel extends javax.swing.JPanel {
                 //get values from fields by getters      
                 Date todayDate = new Date();
 
-                Order order = new Order(globalIdCounter,
+                /*Order order = new Order(globalIdCounter,
                         orderAddPanel.getType(),
-                        orderAddPanel.getName(),
-                        orderAddPanel.getPrice()
-                );
+                        orderAddPanel.getCustomer(),
+                        todayDate,
+                        todayDate,
+                        orderAddPanel.getProducts()
+                );*/
                 //add to collection
-                addOrder(order);
+                //addOrder(order);
                 //listCustomerBind.put(product.getId(), listItemsCounter);
 
                 //add to list
-                String productInfo = order.getName() + " [" + order.getType() + "][" + order.getPrice() + "PLN] (id: " + product.getId() + ")";
-                listModel.addElement(productInfo);
+                //String productInfo = order.getName() + " [" + order.getType() + "][" + order.getPrice() + "PLN] (id: " + product.getId() + ")";
+                //listModel.addElement(productInfo);
                 globalIdCounter++;
             } 
-            else if(orderChooseActionPanel.getChooseAction() == 2) {//show
+            /*else if(orderChooseActionPanel.getChooseAction() == 2) {//show
                 dialog = null;
                 if(globalIdCounter != 0) {                            
                     //get id spinner from spinner
@@ -288,14 +292,14 @@ public class OrderPanel extends javax.swing.JPanel {
                     showMessageDialog(null, "Brak zamówień");
                 }
                 dialog = null; 
-            }
+            }*/
         }
         catch (Exception ex) {
             Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        catch (ShopException ex) {
+        /*catch (ShopException ex) {
             Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }//GEN-LAST:event_ButtonOrderActionMouseClicked
 
 

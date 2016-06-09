@@ -5,6 +5,9 @@
  */
 package jshop.Forms;
 
+import java.awt.Window;
+import java.util.Map;
+import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Enums.OrderType;
 
@@ -19,6 +22,7 @@ public class OrderFormPanel extends javax.swing.JPanel {
      */
     public OrderFormPanel() {
         initComponents();
+        CustomerPanel.getCustomerMap();
     }
     
     public void setType(OrderType orderType) {
@@ -29,13 +33,26 @@ public class OrderFormPanel extends javax.swing.JPanel {
         return OrderType.valueOf(ComboBoxType.getSelectedItem().toString());
     }
     
-    public void setCustomer(Customer customer) {
+    public void setCustomer(Map<Integer, Customer> customerMap, Customer customer) {
+        for(int i = 0; i < customerMap.size(); i++) {
+            if (customerMap.get(i) != null) {
+                String customerInfo = new String(
+                    customerMap.get(i).getName() + " " +
+                    customerMap.get(i).getSurname() + " [Id: " +
+                    customerMap.get(i).getId() + "]"
+                );
+                ComboBoxType.addItem(customerInfo);
+            }            
+        }
         ComboBoxType.setSelectedItem(customer);
     }
     
-    public OrderType getCustomer() {
-        return OrderType.valueOf(ComboBoxType.getSelectedItem().toString());
-    }
+    //public Customer getCustomer() {
+        //return ComboBoxType.getSelectedItem();
+        //return new Customer();
+    //}
+    
+    //get&set products
 
     public void setButtonText(String text) {
         ButtonActionOrderDialog.setText(text);

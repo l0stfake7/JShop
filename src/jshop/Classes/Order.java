@@ -24,7 +24,7 @@ public class Order {
     private List<Product> product;
     
     //constructors
-    private Order (int Id, OrderType type, Customer customer, Date orderDate, Date realizationDate, List<Product> product) {
+    public Order (int Id, OrderType type, Customer customer, Date orderDate, Date realizationDate, List<Product> product) {
         this.Id = Id;
         this.type = type;
         this.customer = customer;

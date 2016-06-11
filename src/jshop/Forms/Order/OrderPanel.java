@@ -21,7 +21,6 @@ import javax.swing.SwingUtilities;
 import jshop.Classes.Order;
 import jshop.Classes.ShopException;
 import jshop.Forms.ChooseActionPanel;
-import jshop.Forms.Customer.CustomerPanel;
 
 /**
  *
@@ -155,9 +154,6 @@ public class OrderPanel extends javax.swing.JPanel {
                         dialog = new JDialog(win, "Dodaj zamówienie",
                                 Dialog.ModalityType.APPLICATION_MODAL);
                         dialog.getContentPane().add(orderAddPanel);
-                        //set customers collection and products collection
-                        orderAddPanel.setCustomer(CustomerPanel.getCustomerMap(), null);
-                        orderAddPanel.setProduct(ProductPanel.getProductMap(), null);
                         dialog.pack();
                         dialog.setLocationRelativeTo(null);
                     }
@@ -165,23 +161,30 @@ public class OrderPanel extends javax.swing.JPanel {
                 dialog.setVisible(true); // here the modal dialog takes over
                 //TODO check if datas from form is not null
                 //get values from fields by getters      
-                Date todayDate = new Date();
 
-                /*Order order = new Order(globalIdCounter,
-                        orderAddPanel.getType(),
-                        orderAddPanel.getCustomer(),
-                        todayDate,
-                        todayDate,
-                        orderAddPanel.getProducts()
-                );*/
-                //add to collection
-                //addOrder(order);
-                //listCustomerBind.put(product.getId(), listItemsCounter);
+                if(orderAddPanel.getCustomer() != null && orderAddPanel.getProduct() != null) {
+                    Date todayDate = new Date();
 
-                //add to list
-                //String productInfo = order.getName() + " [" + order.getType() + "][" + order.getPrice() + "PLN] (id: " + product.getId() + ")";
-                //listModel.addElement(productInfo);
-                globalIdCounter++;
+                    Order order = new Order(globalIdCounter,
+                            orderAddPanel.getType(),
+                            orderAddPanel.getCustomer(),
+                            todayDate,
+                            todayDate,
+                            orderAddPanel.getProduct()
+                    );
+                    //add to collection
+                    addOrder(order);
+
+                    //add to list
+                    String productInfo = new String("id: " + order.getId() + ")");
+
+                    listModel.addElement(productInfo);
+                    globalIdCounter++;
+                }
+                else {
+
+                }
+                
             } 
             /*else if(orderChooseActionPanel.getChooseAction() == 2) {//show
                 dialog = null;
@@ -299,7 +302,7 @@ public class OrderPanel extends javax.swing.JPanel {
             }*/
         }
         catch (Exception ex) {
-            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
         } 
         /*catch (ShopException ex) {
             Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);

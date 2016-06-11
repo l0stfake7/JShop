@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.Product;
 import jshop.Enums.OrderType;
+import jshop.Forms.Customer.CustomerPanel;
 import jshop.Forms.Product.ProductPanel;
 
 /**
@@ -34,7 +35,7 @@ public class OrderFormPanel extends javax.swing.JPanel {
     private DefaultComboBoxModel<String> customerComboBoxModel;
     private DefaultComboBoxModel<String> productComboBoxModel;
     private DefaultListModel<String> productListModel;
-    private boolean comboBoxProductsItemStateChangedFlag;
+
     private List<Product> productList;
     private Map<Integer, Product> productListBind;
     
@@ -46,7 +47,6 @@ public class OrderFormPanel extends javax.swing.JPanel {
         customerComboBoxModel = new DefaultComboBoxModel<>();
         productComboBoxModel = new DefaultComboBoxModel<>();
         productListModel = new DefaultListModel<>();
-        comboBoxProductsItemStateChangedFlag = false;
         productList = new ArrayList<Product>();
         productListBind = new HashMap<Integer, Product>();
         initComponents();              
@@ -60,57 +60,40 @@ public class OrderFormPanel extends javax.swing.JPanel {
         return OrderType.valueOf(ComboBoxType.getSelectedItem().toString());
     }
     
-    public void setCustomer(Map<Integer, Customer> customerMap, Customer customer) {
-        for(int i = 0; i < customerMap.size(); i++) {
-            if (customerMap.get(i) != null) {
-                String customerInfo = new String(
-                    customerMap.get(i).getName() + " " +
-                    customerMap.get(i).getSurname() + " [Id: " +
-                    customerMap.get(i).getId() + "]"
-                );
-                customerComboBoxModel.addElement(customerInfo);
-            }            
-        }
+    public void setCustomer(Customer customer) {        
         if(customer != null) {
-            ComboBoxCustomer.setSelectedItem(customer);
+            SpinnerClientId.setValue(customer.getId());
         }        
     }
     
-    //public Customer getCustomer() {
-        //return ComboBoxType.getSelectedItem();
-        //return new Customer();
-    //}
+    public Customer getCustomer() {
+        Customer customer;
+        if((customer = CustomerPanel.getCustomerMap().get((int)SpinnerClientId.getValue())) != null) {
+            return customer;
+        }
+        else {
+            return null;
+        }
+    }
     
-    //get&set products
-    public void setProduct(Map<Integer, Product> productMap, List<Product> product) {
-        comboBoxProductsItemStateChangedFlag = false;
-        for(int i = 0; i <= productMap.size(); i++) {
-            if (productMap.get(i) != null) {
-                String productInfo = new String(
-                    productMap.get(i).getName() + " " +
-                    productMap.get(i).getType() + " [Id: " +
-                    productMap.get(i).getId() + "]"
-                );                
-                if(productMap.size() == 1) {//jeśli tylko jeden produkt to od razu uznaję, że będzie wybrany
-                    productListModel.addElement(productInfo); 
-                    productList.add(productMap.get(i));
-                }
-                productComboBoxModel.addElement(productInfo);
-                productListBind.put(i, productMap.get(i));
-            }            
-        }  
-        if(product != null) {//wykona się tylko kiedy prześlę listę obiektów zamówienia do edycji
+    public void setProduct(List<Product> product) {
+         
+        if(product != null) {
             for(int i = 0; i <= product.size(); i++) {
                 String productInfo = new String(
-                    productMap.get(i).getName() + " " +
-                    productMap.get(i).getType() + " [Id: " +
-                    productMap.get(i).getId() + "]"
+                    product.get(i).getName() + " [" +
+                    product.get(i).getType() + "][Id: " +
+                    product.get(i).getId() + "]"
                 );
                 productListModel.addElement(productInfo);
-                productList.add(productMap.get(i));
+                productList.add(product.get(i));
             }
         }
-        comboBoxProductsItemStateChangedFlag = true;
+
+    }
+    
+    public List<Product> getProduct() {
+        return productList;
     }
 
     public void setButtonText(String text) {
@@ -129,12 +112,15 @@ public class OrderFormPanel extends javax.swing.JPanel {
         LabelType = new javax.swing.JLabel();
         ComboBoxType = new javax.swing.JComboBox<>();
         LabelCustomer = new javax.swing.JLabel();
-        ComboBoxCustomer = new javax.swing.JComboBox<>();
         LabelProducts = new javax.swing.JLabel();
-        ComboBoxProducts = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListProducts = new javax.swing.JList<>();
         ButtonActionOrderDialog = new javax.swing.JButton();
+        SpinnerProductId = new javax.swing.JSpinner();
+        ButtonProductAdd = new javax.swing.JButton();
+        SpinnerClientId = new javax.swing.JSpinner();
+        ButtonClientsShow = new javax.swing.JButton();
+        ButtonProductsShow = new javax.swing.JButton();
 
         LabelType.setText("Typ");
 
@@ -142,16 +128,7 @@ public class OrderFormPanel extends javax.swing.JPanel {
 
         LabelCustomer.setText("Klient");
 
-        ComboBoxCustomer.setModel(customerComboBoxModel);
-
         LabelProducts.setText("Produkty");
-
-        ComboBoxProducts.setModel(new ProductComboBoxModel());
-        ComboBoxProducts.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ComboBoxProductsItemStateChanged(evt);
-            }
-        });
 
         ListProducts.setModel(productListModel);
         ListProducts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -162,6 +139,31 @@ public class OrderFormPanel extends javax.swing.JPanel {
         ButtonActionOrderDialog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonActionOrderDialogMouseClicked(evt);
+            }
+        });
+
+        SpinnerProductId.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        ButtonProductAdd.setText("Dodaj produkt");
+        ButtonProductAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonProductAddMouseClicked(evt);
+            }
+        });
+
+        SpinnerClientId.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        ButtonClientsShow.setText("Pokaż klientów");
+        ButtonClientsShow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonClientsShowMouseClicked(evt);
+            }
+        });
+
+        ButtonProductsShow.setText("Pokaż produkty");
+        ButtonProductsShow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonProductsShowMouseClicked(evt);
             }
         });
 
@@ -177,19 +179,26 @@ public class OrderFormPanel extends javax.swing.JPanel {
                             .addComponent(LabelType)
                             .addComponent(LabelCustomer)
                             .addComponent(LabelProducts))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                            .addComponent(ComboBoxType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboBoxCustomer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(ComboBoxProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(SpinnerProductId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                                    .addComponent(SpinnerClientId, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ButtonClientsShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ButtonProductsShow, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ButtonProductAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8))
             .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addGap(114, 114, 114)
                 .addComponent(ButtonActionOrderDialog)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,13 +210,20 @@ public class OrderFormPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelCustomer)
-                    .addComponent(ComboBoxCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SpinnerClientId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonClientsShow))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpinnerProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelProducts)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ComboBoxProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonProductsShow))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(ButtonProductAdd)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ButtonActionOrderDialog)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -221,70 +237,44 @@ public class OrderFormPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ButtonActionOrderDialogMouseClicked
 
-    private void ComboBoxProductsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxProductsItemStateChanged
-        if(evt.getStateChange() == ItemEvent.SELECTED && comboBoxProductsItemStateChangedFlag == true) {
-            // productListBind.put(i, productMap.get(i).getId());
-            /*int selectedItem = Integer.valueOf((String)productComboBoxModel.getSelectedIndex());
-            productList.add(productListBind.get(selectedItem));
+    private void ButtonClientsShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientsShowMouseClicked
+        //show new panel with jlist of clients
+    }//GEN-LAST:event_ButtonClientsShowMouseClicked
+
+    private void ButtonProductsShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductsShowMouseClicked
+        //show new panel with jlist of products
+    }//GEN-LAST:event_ButtonProductsShowMouseClicked
+
+    private void ButtonProductAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductAddMouseClicked
+        Product product;
+        if((product = ProductPanel.getProductMap().get((int)SpinnerProductId.getValue())) != null) {
             String productInfo = new String(
-                    productListBind.get(selectedItem).getName() + " " +
-                    productListBind.get(selectedItem).getType() + " [Id: " +
-                    productListBind.get(selectedItem).getId() + "]"
-            );   
-            productListModel.addElement(productInfo);*/
-            
+                product.getName() + " [" +
+                product.getType() + "][Id: " +
+                product.getId() + "]"
+            );
+            productListModel.addElement(productInfo);
+            productList.add(product);
         }
-    }//GEN-LAST:event_ComboBoxProductsItemStateChanged
+        else {
+            showMessageDialog(null, "Nie ma takiego produktu!");
+        }
+    }//GEN-LAST:event_ButtonProductAddMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonActionOrderDialog;
-    private javax.swing.JComboBox<String> ComboBoxCustomer;
-    private javax.swing.JComboBox<String> ComboBoxProducts;
+    private javax.swing.JButton ButtonClientsShow;
+    private javax.swing.JButton ButtonProductAdd;
+    private javax.swing.JButton ButtonProductsShow;
     private javax.swing.JComboBox<String> ComboBoxType;
     private javax.swing.JLabel LabelCustomer;
     private javax.swing.JLabel LabelProducts;
     private javax.swing.JLabel LabelType;
     private javax.swing.JList<String> ListProducts;
+    private javax.swing.JSpinner SpinnerClientId;
+    private javax.swing.JSpinner SpinnerProductId;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    public class ProductComboBoxModel extends AbstractListModel implements ComboBoxModel {
-
-        Object selectionItem = null;
-        
-        @Override
-        public int getSize() {
-            return ProductPanel.getProductMap().size();            
-        }
-
-        @Override
-        public Object getElementAt(int index) {
-            return ProductPanel.getProductMap().get(index);            
-        }
-
-        @Override
-        public void setSelectedItem(Object anItem) {
-            selectionItem = anItem;            
-        }
-
-        @Override
-        public Object getSelectedItem() {
-            return selectionItem;
-        }  
-        
-                
-        public int getSelectedItemInteger() {
-            return 1;
-        }
-        
-        public void add(Product product) {
-            productListBind.put(productList.size() - 1, product);//add to collection
-            int index0 = productList.size() - 1;
-            int index1 = index0;
-            fireIntervalAdded(this, index0, index1);
-        }
-        
-        
-    }
 }

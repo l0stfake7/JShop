@@ -35,9 +35,9 @@ public class MainPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        customerPanel2 = new jshop.Forms.CustomerPanel();
-        productPanel1 = new jshop.Forms.ProductPanel();
-        orderPanel1 = new jshop.Forms.OrderPanel();
+        customerPanel2 = new jshop.Forms.Customer.CustomerPanel();
+        productPanel1 = new jshop.Forms.Product.ProductPanel();
+        orderPanel1 = new jshop.Forms.Order.OrderPanel();
 
         jTabbedPane2.addTab("Klienci", customerPanel2);
         jTabbedPane2.addTab("Produkty", productPanel1);
@@ -63,9 +63,9 @@ public class MainPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private jshop.Forms.CustomerPanel customerPanel2;
+    private jshop.Forms.Customer.CustomerPanel customerPanel2;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private jshop.Forms.OrderPanel orderPanel1;
-    private jshop.Forms.ProductPanel productPanel1;
+    private jshop.Forms.Order.OrderPanel orderPanel1;
+    private jshop.Forms.Product.ProductPanel productPanel1;
     // End of variables declaration//GEN-END:variables
 }

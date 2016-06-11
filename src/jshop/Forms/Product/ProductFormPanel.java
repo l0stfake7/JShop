@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jshop.Forms;
+package jshop.Forms.Product;
 
 import java.awt.Window;
 import javax.swing.DefaultComboBoxModel;
@@ -44,7 +44,7 @@ public class ProductFormPanel extends javax.swing.JPanel {
     }
     
     public double getPrice() {
-        return (double) SpinnerPrice.getValue();
+        return  (double)Math.round((double)SpinnerPrice.getValue() * 100d) / 100d;//na pewno dwa miejsca po przecinku!!
     }
     
     public void setPrice(double price) {
@@ -83,7 +83,7 @@ public class ProductFormPanel extends javax.swing.JPanel {
 
         LabelPrice.setText("Cena");
 
-        SpinnerPrice.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+        SpinnerPrice.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 0.01d));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

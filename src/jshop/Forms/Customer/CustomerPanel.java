@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jshop.Forms;
+package jshop.Forms.Customer;
 
 import java.awt.Dialog;
 import java.awt.Window;
@@ -15,52 +15,62 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
-import jshop.Classes.Order;
+import jshop.Classes.Customer;
 import jshop.Classes.ShopException;
+import jshop.Forms.ChooseActionPanel;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
  * @author bartek
  */
-public class OrderPanel extends javax.swing.JPanel {
+public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Order>*/ {
 
+    /**
+     * @return the customerMap
+     */
+    public static Map<Integer, Customer> getCustomerMap() {
+        return customerMap;
+    }
     
-    private OrderFormPanel orderAddPanel;
-    private ChooseActionPanel orderChooseActionPanel;
+    private CustomerFormPanel customerAddPanel;
+    private ChooseActionPanel customerChooseActionPanel;
     
-    private int globalIdCounter = 0;//Orders Id    
+    private int globalIdCounter = 0;//Customers Id    
     
     DefaultListModel<String> listModel = new DefaultListModel<>();
 
-    private static Map<Integer, Order> orderMap;
+    private static Map<Integer, Customer> customerMap;
+    
+    
     
     //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
-    private static void addOrder(Order order) {
-        orderMap.put(order.getId(), order);
+    private static void addCustomer(Customer cust) {
+        getCustomerMap().put(cust.getId(), cust);
     }
 
-    private static Order getOrder(int id) throws ShopException {
-        if (orderMap.get(id) == null) {
+    private static Customer getCustomer(int id) throws ShopException {
+        if (getCustomerMap().get(id) == null) {
             return null;//or throw new MyException("Not found object with id: " + id);//what is better?
         } else {
-            return orderMap.get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
+            return getCustomerMap().get(id);//// TODO: 26.05.16 add safety search: if id doesn't exists return null or throws exception
         }
     }
     
-    private static void removeOrder(Order order) {
-        orderMap.remove(order.getId());
-    }
-    /**
-     * Creates new form OrderPanel
-     */
-    public OrderPanel() {
-        initComponents();
-        
-        orderMap = new HashMap<Integer, Order>();
+    private static void removeCustomer(Customer customer) {
+        getCustomerMap().remove(customer.getId());
     }
 
+    /**
+     * Creates new form MainFramePanel
+     */
+    public CustomerPanel() {
+        initComponents();
+        
+        customerMap = new HashMap<Integer, Customer>();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,24 +81,25 @@ public class OrderPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        SpinnerOrderId = new javax.swing.JSpinner();
-        ButtonOrderAction = new javax.swing.JButton();
-        LabelOrderId = new javax.swing.JLabel();
+        ListCustomers = new javax.swing.JList<>();
+        ButtonCustomerAction = new javax.swing.JButton();
+        SpinnerCustomerId = new javax.swing.JSpinner();
+        LabelCustomerId = new javax.swing.JLabel();
 
-        jList1.setModel(listModel);
-        jScrollPane1.setViewportView(jList1);
+        ListCustomers.setModel(listModel);
+        ListCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(ListCustomers);
 
-        SpinnerOrderId.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-
-        ButtonOrderAction.setText("Wybierz akcję");
-        ButtonOrderAction.addMouseListener(new java.awt.event.MouseAdapter() {
+        ButtonCustomerAction.setText("Wybierz akcję");
+        ButtonCustomerAction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonOrderActionMouseClicked(evt);
+                ButtonCustomerActionMouseClicked(evt);
             }
         });
 
-        LabelOrderId.setText("Id:");
+        SpinnerCustomerId.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        LabelCustomerId.setText("Id:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -97,16 +108,14 @@ public class OrderPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabelOrderId)
+                        .addComponent(LabelCustomerId)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SpinnerOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ButtonOrderAction, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(SpinnerCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(ButtonCustomerAction, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,16 +124,16 @@ public class OrderPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LabelOrderId)
-                    .addComponent(SpinnerOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonOrderAction))
+                    .addComponent(SpinnerCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelCustomerId)
+                    .addComponent(ButtonCustomerAction))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonOrderActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonOrderActionMouseClicked
+    private void ButtonCustomerActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCustomerActionMouseClicked
         try {
-            orderChooseActionPanel = new ChooseActionPanel();
+            customerChooseActionPanel = new ChooseActionPanel();
             JDialog dialog = null;
             //show 
             if (dialog == null) {
@@ -132,29 +141,27 @@ public class OrderPanel extends javax.swing.JPanel {
                 if (win != null) {
                     dialog = new JDialog(win, "Wybierz akcję",
                             Dialog.ModalityType.APPLICATION_MODAL);
-                    dialog.getContentPane().add(orderChooseActionPanel);
-                    orderChooseActionPanel.ButtonAddSetText("Dodaj zamówienie");
-                    orderChooseActionPanel.ButtonShowSetText("Zobacz zamówienie");
-                    orderChooseActionPanel.ButtonEditSetText("Edytuj zamówienie");
-                    orderChooseActionPanel.ButtonRemoveSetText("Usuń zamówienie");
+                    dialog.getContentPane().add(customerChooseActionPanel);
+                    customerChooseActionPanel.ButtonAddSetText("Dodaj klienta");
+                    customerChooseActionPanel.ButtonShowSetText("Zobacz klienta");
+                    customerChooseActionPanel.ButtonEditSetText("Edytuj klienta");
+                    customerChooseActionPanel.ButtonRemoveSetText("Usuń klienta");
+                    customerChooseActionPanel.HideRealizeButton();
                     dialog.pack();
                     dialog.setLocationRelativeTo(null);
                 }
             }
             dialog.setVisible(true); // here the modal dialog takes over
             //get clicked button
-            if(orderChooseActionPanel.getChooseAction() == 1) {//add                    
+            if(customerChooseActionPanel.getChooseAction() == 1) {//add                    
                 dialog = null;
-                orderAddPanel = new OrderFormPanel();
+                customerAddPanel = new CustomerFormPanel();
                 if (dialog == null) {            
                     Window win = SwingUtilities.getWindowAncestor(this);
                     if (win != null) {
-                        dialog = new JDialog(win, "Dodaj zamówienie",
+                        dialog = new JDialog(win, "Dodaj klienta",
                                 Dialog.ModalityType.APPLICATION_MODAL);
-                        dialog.getContentPane().add(orderAddPanel);
-                        //set customers collection and products collection
-                        orderAddPanel.setCustomer(CustomerPanel.getCustomerMap(), null);
-                        orderAddPanel.setProduct(ProductPanel.getProductMap(), null);
+                        dialog.getContentPane().add(customerAddPanel);
                         dialog.pack();
                         dialog.setLocationRelativeTo(null);
                     }
@@ -164,27 +171,31 @@ public class OrderPanel extends javax.swing.JPanel {
                 //get values from fields by getters      
                 Date todayDate = new Date();
 
-                /*Order order = new Order(globalIdCounter,
-                        orderAddPanel.getType(),
-                        orderAddPanel.getCustomer(),
+                Customer customer = new Customer(globalIdCounter,
+                        customerAddPanel.getName(),
+                        customerAddPanel.getSurname(),
+                        customerAddPanel.getPeselNumber(),
+                        customerAddPanel.getGender(),
+                        customerAddPanel.getDateBirthDay(),
+                        customerAddPanel.getAddress(),
+                        customerAddPanel.getEmail(),
                         todayDate,
-                        todayDate,
-                        orderAddPanel.getProducts()
-                );*/
+                        customerAddPanel.getBalance()
+                );
                 //add to collection
-                //addOrder(order);
-                //listCustomerBind.put(product.getId(), listItemsCounter);
+                addCustomer(customer);
+                //listCustomerBind.put(customer.getId(), listItemsCounter);
 
                 //add to list
-                //String productInfo = order.getName() + " [" + order.getType() + "][" + order.getPrice() + "PLN] (id: " + product.getId() + ")";
-                //listModel.addElement(productInfo);
+                String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+                listModel.addElement(customerInfo);
                 globalIdCounter++;
-            } 
-            /*else if(orderChooseActionPanel.getChooseAction() == 2) {//show
+            }
+            else if(customerChooseActionPanel.getChooseAction() == 2) {//show
                 dialog = null;
                 if(globalIdCounter != 0) {                            
                     //get id spinner from spinner
-                    Order cust = getOrder((int) SpinnerOrderId.getValue());
+                    Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
                     if(cust != null) {
                         String customerBirthDate = new SimpleDateFormat("yyyy-MM-dd").format(cust.getDateOfBirth());
                         String customerInfo = new String(           
@@ -200,59 +211,59 @@ public class OrderPanel extends javax.swing.JPanel {
                                 "\nStan konta: " + cust.getBalance()
                     
                         );
-                        showMessageDialog(this, customerInfo, "Informacje o zamówieniu", HEIGHT);
+                        showMessageDialog(this, customerInfo, "Informacje o kliencie", HEIGHT);
                     }
                     else {
-                       showMessageDialog(null, "Nie ma takiego zamówienia!"); 
+                       showMessageDialog(null, "Nie ma takiego klienta!"); 
                     }                    
                 }
                 else {
-                    showMessageDialog(null, "Brak zamówień");
+                    showMessageDialog(null, "Brak klientów");
                 }
                 dialog = null;                    
             }
-            else if(orderChooseActionPanel.getChooseAction() == 3 && globalIdCounter != 0) {//edit
+            else if(customerChooseActionPanel.getChooseAction() == 3 && globalIdCounter != 0) {//edit
                 dialog = null;
                 if(globalIdCounter != 0) {  
-                    Order cust = getOrder((int) SpinnerOrderId.getValue());
+                    Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
                     if(cust != null) {
-                        orderAddPanel = new OrderFormPanel();
+                        customerAddPanel = new CustomerFormPanel();
                         if (dialog == null) {            
                             Window win = SwingUtilities.getWindowAncestor(this);
                             if (win != null) {
-                                dialog = new JDialog(win, "Edytuj zamówienie",
+                                dialog = new JDialog(win, "Edytuj klienta",
                                         Dialog.ModalityType.APPLICATION_MODAL);
-                                dialog.getContentPane().add(orderAddPanel);
-                                orderAddPanel.setButtonText("Edytuj zamówienie");
+                                dialog.getContentPane().add(customerAddPanel);
+                                customerAddPanel.setButtonText("Edytuj klienta");
                                 dialog.pack();
                                 dialog.setLocationRelativeTo(null);
                                 
                                 //set data
-                                orderAddPanel.setName(cust.getName());
-                                orderAddPanel.setSurname(cust.getSurname());
-                                orderAddPanel.setPeselNumber(cust.getPeselNumber());
-                                orderAddPanel.setGender(cust.getGender());
-                                orderAddPanel.setDateBirthDay(cust.getDateOfBirth());
-                                orderAddPanel.setAddress(cust.getAddress());
-                                orderAddPanel.setEmail(cust.getEmailAddress());
-                                orderAddPanel.setBalance(cust.getBalance());
+                                customerAddPanel.setName(cust.getName());
+                                customerAddPanel.setSurname(cust.getSurname());
+                                customerAddPanel.setPeselNumber(cust.getPeselNumber());
+                                customerAddPanel.setGender(cust.getGender());
+                                customerAddPanel.setDateBirthDay(cust.getDateOfBirth());
+                                customerAddPanel.setAddress(cust.getAddress());
+                                customerAddPanel.setEmail(cust.getEmailAddress());
+                                customerAddPanel.setBalance(cust.getBalance());
                             }
                         }
                         dialog.setVisible(true); // here the modal dialog takes over
                         
                         //save
-                        cust.setName(orderAddPanel.getName());
-                        cust.setSurname(orderAddPanel.getSurname());
-                        cust.setPeselNumber(orderAddPanel.getPeselNumber());
-                        cust.setGender(orderAddPanel.getGender());
-                        cust.setDateOfBirth(orderAddPanel.getDateBirthDay());
-                        cust.setAddress(orderAddPanel.getAddress());
-                        cust.setEmailAddress(orderAddPanel.getEmail());
-                        cust.setBalance(orderAddPanel.getBalance());
+                        cust.setName(customerAddPanel.getName());
+                        cust.setSurname(customerAddPanel.getSurname());
+                        cust.setPeselNumber(customerAddPanel.getPeselNumber());
+                        cust.setGender(customerAddPanel.getGender());
+                        cust.setDateOfBirth(customerAddPanel.getDateBirthDay());
+                        cust.setAddress(customerAddPanel.getAddress());
+                        cust.setEmailAddress(customerAddPanel.getEmail());
+                        cust.setBalance(customerAddPanel.getBalance());
                         
                         listModel.clear();
-                        for(int i = 0; i <= orderMap.size(); i++) {
-                            Order customer = getOrder(i);
+                        for(int i = 0; i <= getCustomerMap().size(); i++) {
+                            Customer customer = getCustomer(i);
                             if(customer != null) {
                                 String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
                                 listModel.addElement(customerInfo);
@@ -260,25 +271,25 @@ public class OrderPanel extends javax.swing.JPanel {
                         } 
                     }
                     else {
-                        showMessageDialog(null, "Brak zamówień");
+                        showMessageDialog(null, "Brak klientów");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Brak zamówień");
+                    showMessageDialog(null, "Brak klientów");
                 }
                 dialog = null; 
             }
-            else if(orderChooseActionPanel.getChooseAction() == 4 && globalIdCounter != 0) {//remove
+            else if(customerChooseActionPanel.getChooseAction() == 4 && globalIdCounter != 0) {//remove
                 dialog = null;
                 if(globalIdCounter != 0) {  
-                    Order cust = getOrder((int) SpinnerOrderId.getValue());
+                    Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
                     if(cust != null) {
                         //remove from collection
-                        removeOrder(cust);
+                        removeCustomer(cust);
                         //reload list 
                         listModel.clear();
-                        for(int i = 0; i <= orderMap.size(); i++) {
-                            Order customer = getOrder(i);
+                        for(int i = 0; i <= getCustomerMap().size(); i++) {
+                            Customer customer = getCustomer(i);
                             if(customer != null) {
                                 String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
                                 listModel.addElement(sb);
@@ -286,29 +297,29 @@ public class OrderPanel extends javax.swing.JPanel {
                         } 
                     }
                     else {
-                        showMessageDialog(null, "Brak zamówień");
+                        showMessageDialog(null, "Brak klientów");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Brak zamówień");
+                    showMessageDialog(null, "Brak klientów");
                 }
                 dialog = null; 
-            }*/
+            }
         }
         catch (Exception ex) {
             Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        /*catch (ShopException ex) {
+        catch (ShopException ex) {
             Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-    }//GEN-LAST:event_ButtonOrderActionMouseClicked
+        }  
 
+    }//GEN-LAST:event_ButtonCustomerActionMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonOrderAction;
-    private javax.swing.JLabel LabelOrderId;
-    private javax.swing.JSpinner SpinnerOrderId;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JButton ButtonCustomerAction;
+    private javax.swing.JLabel LabelCustomerId;
+    private javax.swing.JList<String> ListCustomers;
+    private javax.swing.JSpinner SpinnerCustomerId;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

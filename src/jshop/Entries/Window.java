@@ -6,7 +6,7 @@
 package jshop.Entries;
 
 import javax.swing.JFrame;
-import jshop.Forms.CustomerPanel;
+import jshop.Forms.Customer.CustomerPanel;
 import jshop.Forms.MainPanel;
 
 /**

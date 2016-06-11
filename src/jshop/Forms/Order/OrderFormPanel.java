@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jshop.Forms;
+package jshop.Forms.Order;
 
 import java.awt.Window;
 import java.util.List;

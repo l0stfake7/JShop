@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jshop.Forms;
+package jshop.Forms.Product;
 
 import java.awt.Dialog;
 import java.awt.Window;
@@ -18,6 +18,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Product;
 import jshop.Classes.ShopException;
+import jshop.Forms.ChooseActionPanel;
+import jshop.Forms.Customer.CustomerPanel;
 
 /**
  *

@@ -39,12 +39,10 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
     
     private int globalIdCounter = 0;//Customers Id    
     
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+    private DefaultListModel<String> listModel = new DefaultListModel<>();
 
     private static Map<Integer, Customer> customerMap;
-    
-    
-    
+     
     //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
     private static void addCustomer(Customer cust) {
         getCustomerMap().put(cust.getId(), cust);

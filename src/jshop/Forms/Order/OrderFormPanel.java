@@ -5,15 +5,25 @@
  */
 package jshop.Forms.Order;
 
+import java.awt.AWTEvent;
 import java.awt.Window;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.Product;
 import jshop.Enums.OrderType;
+import jshop.Forms.Product.ProductPanel;
 
 /**
  *
@@ -21,9 +31,13 @@ import jshop.Enums.OrderType;
  */
 public class OrderFormPanel extends javax.swing.JPanel {
 
-    DefaultComboBoxModel<String> customerComboBoxModel;
-    DefaultComboBoxModel<String> productComboBoxModel;
-    DefaultListModel<String> productListModel;
+    private DefaultComboBoxModel<String> customerComboBoxModel;
+    private DefaultComboBoxModel<String> productComboBoxModel;
+    private DefaultListModel<String> productListModel;
+    private boolean comboBoxProductsItemStateChangedFlag;
+    private List<Product> productList;
+    private Map<Integer, Product> productListBind;
+    
     /**
      * Creates new form OrderFormPanel
      */
@@ -32,7 +46,10 @@ public class OrderFormPanel extends javax.swing.JPanel {
         customerComboBoxModel = new DefaultComboBoxModel<>();
         productComboBoxModel = new DefaultComboBoxModel<>();
         productListModel = new DefaultListModel<>();
-        initComponents();        
+        comboBoxProductsItemStateChangedFlag = false;
+        productList = new ArrayList<Product>();
+        productListBind = new HashMap<Integer, Product>();
+        initComponents();              
     }
     
     public void setType(OrderType orderType) {
@@ -66,17 +83,23 @@ public class OrderFormPanel extends javax.swing.JPanel {
     
     //get&set products
     public void setProduct(Map<Integer, Product> productMap, List<Product> product) {
+        comboBoxProductsItemStateChangedFlag = false;
         for(int i = 0; i <= productMap.size(); i++) {
             if (productMap.get(i) != null) {
                 String productInfo = new String(
                     productMap.get(i).getName() + " " +
                     productMap.get(i).getType() + " [Id: " +
                     productMap.get(i).getId() + "]"
-                );
+                );                
+                if(productMap.size() == 1) {//jeśli tylko jeden produkt to od razu uznaję, że będzie wybrany
+                    productListModel.addElement(productInfo); 
+                    productList.add(productMap.get(i));
+                }
                 productComboBoxModel.addElement(productInfo);
+                productListBind.put(i, productMap.get(i));
             }            
         }  
-        if(product != null) {
+        if(product != null) {//wykona się tylko kiedy prześlę listę obiektów zamówienia do edycji
             for(int i = 0; i <= product.size(); i++) {
                 String productInfo = new String(
                     productMap.get(i).getName() + " " +
@@ -84,8 +107,10 @@ public class OrderFormPanel extends javax.swing.JPanel {
                     productMap.get(i).getId() + "]"
                 );
                 productListModel.addElement(productInfo);
+                productList.add(productMap.get(i));
             }
         }
+        comboBoxProductsItemStateChangedFlag = true;
     }
 
     public void setButtonText(String text) {
@@ -121,7 +146,7 @@ public class OrderFormPanel extends javax.swing.JPanel {
 
         LabelProducts.setText("Produkty");
 
-        ComboBoxProducts.setModel(productComboBoxModel);
+        ComboBoxProducts.setModel(new ProductComboBoxModel());
         ComboBoxProducts.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboBoxProductsItemStateChanged(evt);
@@ -197,7 +222,18 @@ public class OrderFormPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ButtonActionOrderDialogMouseClicked
 
     private void ComboBoxProductsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxProductsItemStateChanged
-        //add item to list
+        if(evt.getStateChange() == ItemEvent.SELECTED && comboBoxProductsItemStateChangedFlag == true) {
+            // productListBind.put(i, productMap.get(i).getId());
+            /*int selectedItem = Integer.valueOf((String)productComboBoxModel.getSelectedIndex());
+            productList.add(productListBind.get(selectedItem));
+            String productInfo = new String(
+                    productListBind.get(selectedItem).getName() + " " +
+                    productListBind.get(selectedItem).getType() + " [Id: " +
+                    productListBind.get(selectedItem).getId() + "]"
+            );   
+            productListModel.addElement(productInfo);*/
+            
+        }
     }//GEN-LAST:event_ComboBoxProductsItemStateChanged
 
 
@@ -212,4 +248,43 @@ public class OrderFormPanel extends javax.swing.JPanel {
     private javax.swing.JList<String> ListProducts;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    public class ProductComboBoxModel extends AbstractListModel implements ComboBoxModel {
+
+        Object selectionItem = null;
+        
+        @Override
+        public int getSize() {
+            return ProductPanel.getProductMap().size();            
+        }
+
+        @Override
+        public Object getElementAt(int index) {
+            return ProductPanel.getProductMap().get(index);            
+        }
+
+        @Override
+        public void setSelectedItem(Object anItem) {
+            selectionItem = anItem;            
+        }
+
+        @Override
+        public Object getSelectedItem() {
+            return selectionItem;
+        }  
+        
+                
+        public int getSelectedItemInteger() {
+            return 1;
+        }
+        
+        public void add(Product product) {
+            productListBind.put(productList.size() - 1, product);//add to collection
+            int index0 = productList.size() - 1;
+            int index1 = index0;
+            fireIntervalAdded(this, index0, index1);
+        }
+        
+        
+    }
 }

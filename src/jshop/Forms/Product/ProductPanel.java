@@ -39,7 +39,7 @@ public class ProductPanel extends javax.swing.JPanel {
     
     private int globalIdCounter = 0;//Product Id    
     
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+    private DefaultListModel<String> listModel = new DefaultListModel<>();
 
     private static Map<Integer, Product> productMap;
     

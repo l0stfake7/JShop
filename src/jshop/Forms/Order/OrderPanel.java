@@ -35,7 +35,7 @@ public class OrderPanel extends javax.swing.JPanel {
     
     private int globalIdCounter = 0;//Orders Id    
     
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+    private DefaultListModel<String> listModel = new DefaultListModel<>();
 
     private static Map<Integer, Order> orderMap;
     

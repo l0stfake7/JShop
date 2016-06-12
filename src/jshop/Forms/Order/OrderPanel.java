@@ -162,29 +162,35 @@ public class OrderPanel extends javax.swing.JPanel {
                 //TODO check if datas from form is not null
                 //get values from fields by getters      
 
-                // if(orderAddPanel.getCustomer() != null && orderAddPanel.getProduct() != null) {
-                    Date todayDate = new Date();
+                if(orderAddPanel.getCustomer() != null) {
+                    if(orderAddPanel.getProduct().size() != 0) {
+                        Date todayDate = new Date();
 
-                    Order order = new Order(globalIdCounter,
-                            orderAddPanel.getType(),
-                            orderAddPanel.getCustomer(),
-                            todayDate,
-                            todayDate,
-                            orderAddPanel.getProduct()
-                    );
-                    //add to collection
-                    addOrder(order);
+                        Order order = new Order(globalIdCounter,
+                                orderAddPanel.getType(),
+                                orderAddPanel.getCustomer(),
+                                todayDate,
+                                todayDate,
+                                orderAddPanel.getProduct()
+                        );
+                        //add to collection
+                        addOrder(order);
 
-                    //add to list
-                    String productInfo = new String(order.getCustomer().getName() + " " + order.getCustomer().getSurname() + " [produktów: " + order.getProduct().size() + "] [kwota: " + order.getSumPriceOfProducts() + "] (id: " + order.getId() + ")");
+                        //add to list
+                        String productInfo = new String(order.getCustomer().getName() + " " + order.getCustomer().getSurname() + " [produktów: " + order.getProduct().size() + "] [kwota: " + order.getSumPriceOfProducts() + "] (id: " + order.getId() + ")");
 
-                    listModel.addElement(productInfo);
-                    globalIdCounter++;
-                    showMessageDialog(null, globalIdCounter);
-                //}
-                //else {
+                        listModel.addElement(productInfo);
+                        globalIdCounter++;
+                    }
+                    else {
+                        //throw new ShopException("");
+                        showMessageDialog(null, "Musisz dodać przynajmniej jeden produkt");
+                    }
+                }
+                else {
+                    showMessageDialog(null, "Nie ma takiego klienta");
                     //throw new ShopException("");
-                //}
+                }
                 
             } 
             else if(orderChooseActionPanel.getChooseAction() == 2) {//show
@@ -275,21 +281,21 @@ public class OrderPanel extends javax.swing.JPanel {
                     showMessageDialog(null, "Brak zamówień");
                 }
                 dialog = null; 
-            }
+            }*/
             else if(orderChooseActionPanel.getChooseAction() == 4 && globalIdCounter != 0) {//remove
                 dialog = null;
                 if(globalIdCounter != 0) {  
-                    Order cust = getOrder((int) SpinnerOrderId.getValue());
-                    if(cust != null) {
+                    Order order = getOrder((int) SpinnerOrderId.getValue());
+                    if(order != null) {
                         //remove from collection
-                        removeOrder(cust);
+                        removeOrder(order);
                         //reload list 
                         listModel.clear();
                         for(int i = 0; i <= orderMap.size(); i++) {
-                            Order customer = getOrder(i);
-                            if(customer != null) {
-                                String sb = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
-                                listModel.addElement(sb);
+                            Order tempOrder = getOrder(i);
+                            if(tempOrder != null) {
+                                String orderInfo = new String(tempOrder.getCustomer().getName() + " " + tempOrder.getCustomer().getSurname() + " [produktów: " + tempOrder.getProduct().size() + "] [kwota: " + tempOrder.getSumPriceOfProducts() + "] (id: " + tempOrder.getId() + ")");
+                                listModel.addElement(orderInfo);
                             }                            
                         } 
                     }
@@ -301,7 +307,7 @@ public class OrderPanel extends javax.swing.JPanel {
                     showMessageDialog(null, "Brak zamówień");
                 }
                 dialog = null; 
-            }*/
+            }
         }
         catch (Exception ex) {
             Logger.getLogger(OrderPanel.class.getName()).log(Level.SEVERE, null, ex);

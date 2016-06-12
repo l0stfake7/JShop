@@ -39,7 +39,7 @@ public class Order {
         for(int i = 0; i < product.size(); i++) {
             sumOfPrice += product.get(i).getPrice();
         }
-        return sumOfPrice;
+        return (double)Math.round(sumOfPrice * 100d) / 100d;
     }
     
     //getters & setters

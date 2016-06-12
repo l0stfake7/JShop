@@ -5,20 +5,14 @@
  */
 package jshop.Forms.Order;
 
-import java.awt.AWTEvent;
 import java.awt.Dialog;
 import java.awt.Window;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.AbstractListModel;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
@@ -28,7 +22,6 @@ import jshop.Enums.OrderType;
 import jshop.Forms.Customer.CustomerPanel;
 import jshop.Forms.InfoPanel;
 import jshop.Forms.Product.ProductPanel;
-import static jshop.Forms.Product.ProductPanel.getProductMap;
 
 /**
  *

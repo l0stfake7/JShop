@@ -14,10 +14,8 @@ public class MainPanel extends javax.swing.JPanel {
 //TODO:
 /**
  * zrobic wyjatki
- * gdy usuwany klient lub produkt to sprawic powiazane zlecenia
+ * gdy usuwany klient lub produkt to sprawdzic powiazane zlecenia
  * graniczne punkty, puste formularze, parsowanie peselu
- * sprawienie by niemozliwe bylo zaznaczenie dwoch buttonow
- * maksymalna wartosc spinnera jako wielkosc counter obiektow
  * import projektu do eclipse :v
  * sprawdzanie czy klienta stac na zamowienie
  * aktualizacja zamowien gdy zostal zmieniony klient lub produkt

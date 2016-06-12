@@ -7,7 +7,6 @@ package jshop.Forms;
 
 import java.util.Map;
 import javax.swing.DefaultListModel;
-import static javax.swing.JOptionPane.showMessageDialog;
 import jshop.Classes.Customer;
 import jshop.Classes.Product;
 

@@ -5,7 +5,6 @@
  */
 package jshop.Forms.Order;
 
-import jshop.Forms.Product.ProductPanel;
 import java.awt.Dialog;
 import java.awt.Window;
 import java.text.SimpleDateFormat;
@@ -16,11 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Order;
 import jshop.Classes.ShopException;
 import jshop.Forms.ChooseActionPanel;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -247,7 +246,7 @@ public class OrderPanel extends javax.swing.JPanel {
                             }
                         }
                         dialog.setVisible(true); // here the modal dialog takes over
-                        //check if
+                        //check if customer exist
                         //save
                         order.setType(orderAddPanel.getType());
                         order.setCustomer(orderAddPanel.getCustomer());

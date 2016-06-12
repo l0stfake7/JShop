@@ -31,6 +31,7 @@ public class CustomerFormPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupGender = new javax.swing.ButtonGroup();
         TextFieldName = new javax.swing.JTextField();
         LabelPeselNumber = new javax.swing.JLabel();
         TextFieldSurname = new javax.swing.JTextField();
@@ -56,10 +57,12 @@ public class CustomerFormPanel extends javax.swing.JPanel {
 
         LabelDateOfBirth.setText("Data urodzenia");
 
+        buttonGroupGender.add(RadioButtonWomen);
         RadioButtonWomen.setText("Kobieta");
 
         LabelAddress.setText("Adres");
 
+        buttonGroupGender.add(RadioButtonMen);
         RadioButtonMen.setSelected(true);
         RadioButtonMen.setText("Mężczyzna");
 
@@ -271,5 +274,6 @@ public class CustomerFormPanel extends javax.swing.JPanel {
     private javax.swing.JTextField TextFieldName;
     private javax.swing.JTextField TextFieldPeselNumber;
     private javax.swing.JTextField TextFieldSurname;
+    private javax.swing.ButtonGroup buttonGroupGender;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,12 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Product;
 import jshop.Classes.ShopException;
 import jshop.Forms.ChooseActionPanel;
 import jshop.Forms.Customer.CustomerPanel;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *

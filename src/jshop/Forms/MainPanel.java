@@ -16,7 +16,12 @@ public class MainPanel extends javax.swing.JPanel {
  * zrobic wyjatki
  * gdy usuwany klient lub produkt to sprawic powiazane zlecenia
  * graniczne punkty, puste formularze, parsowanie peselu
+ * sprawienie by niemozliwe bylo zaznaczenie dwoch buttonow
  * maksymalna wartosc spinnera jako wielkosc counter obiektow
+ * import projektu do eclipse :v
+ * sprawdzanie czy klienta stac na zamowienie
+ * 
+ * 
  */
     /**
      * Creates new form MainPanel
@@ -34,14 +39,14 @@ public class MainPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        customerPanel2 = new jshop.Forms.Customer.CustomerPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        customerPanel1 = new jshop.Forms.Customer.CustomerPanel();
         productPanel1 = new jshop.Forms.Product.ProductPanel();
         orderPanel1 = new jshop.Forms.Order.OrderPanel();
 
-        jTabbedPane2.addTab("Klienci", customerPanel2);
-        jTabbedPane2.addTab("Produkty", productPanel1);
-        jTabbedPane2.addTab("Zamówienia", orderPanel1);
+        jTabbedPane1.addTab("Klienci", customerPanel1);
+        jTabbedPane1.addTab("Produkty", productPanel1);
+        jTabbedPane1.addTab("Zamówienia", orderPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -49,22 +54,22 @@ public class MainPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private jshop.Forms.Customer.CustomerPanel customerPanel2;
-    private javax.swing.JTabbedPane jTabbedPane2;
+    private jshop.Forms.Customer.CustomerPanel customerPanel1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private jshop.Forms.Order.OrderPanel orderPanel1;
     private jshop.Forms.Product.ProductPanel productPanel1;
     // End of variables declaration//GEN-END:variables

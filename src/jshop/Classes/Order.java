@@ -34,6 +34,13 @@ public class Order {
     }
     
     //methods
+    public double getSumPriceOfProducts() {
+        double sumOfPrice = 0.0;
+        for(int i = 0; i < product.size(); i++) {
+            sumOfPrice += product.get(i).getPrice();
+        }
+        return sumOfPrice;
+    }
     
     //getters & setters
     /**

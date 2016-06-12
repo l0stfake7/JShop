@@ -162,7 +162,7 @@ public class OrderPanel extends javax.swing.JPanel {
                 //TODO check if datas from form is not null
                 //get values from fields by getters      
 
-                if(orderAddPanel.getCustomer() != null && orderAddPanel.getProduct() != null) {
+                // if(orderAddPanel.getCustomer() != null && orderAddPanel.getProduct() != null) {
                     Date todayDate = new Date();
 
                     Order order = new Order(globalIdCounter,
@@ -176,35 +176,37 @@ public class OrderPanel extends javax.swing.JPanel {
                     addOrder(order);
 
                     //add to list
-                    String productInfo = new String("id: " + order.getId() + ")");
+                    String productInfo = new String(order.getCustomer().getName() + " " + order.getCustomer().getSurname() + " [produktów: " + order.getProduct().size() + "] [kwota: " + order.getSumPriceOfProducts() + "] (id: " + order.getId() + ")");
 
                     listModel.addElement(productInfo);
                     globalIdCounter++;
-                }
-                else {
-
-                }
+                    showMessageDialog(null, globalIdCounter);
+                //}
+                //else {
+                    //throw new ShopException("");
+                //}
                 
             } 
-            /*else if(orderChooseActionPanel.getChooseAction() == 2) {//show
+            else if(orderChooseActionPanel.getChooseAction() == 2) {//show
                 dialog = null;
                 if(globalIdCounter != 0) {                            
                     //get id spinner from spinner
-                    Order cust = getOrder((int) SpinnerOrderId.getValue());
-                    if(cust != null) {
-                        String customerBirthDate = new SimpleDateFormat("yyyy-MM-dd").format(cust.getDateOfBirth());
+                    Order order = getOrder((int) SpinnerOrderId.getValue());
+                    if(order != null) {
+                        String products = new String("");
+                        for(int i = 0; i < order.getProduct().size(); i++) {
+                            products += order.getProduct().get(i).getName() + " [" + order.getProduct().get(i).getType() + "][" + order.getProduct().get(i).getPrice() + "PLN] (id: " + order.getProduct().get(i).getId() + ")\n";
+                        }
+                        
+                        String orderDate = new SimpleDateFormat("yyyy-MM-dd").format(order.getOrderDate());
                         String customerInfo = new String(           
-                                "Id: " + cust.getId() + 
-                                "\nImię: " + cust.getName() + 
-                                "\nNazwisko: " + cust.getSurname() +
-                                "\nPesel: " + cust.getPeselNumber() +
-                                "\nPłeć: " + ((cust.getGender()) ? "Tak" : "Nie") +
-                                "\nData urodzin: " + customerBirthDate +
-                                "\nAdres: " + cust.getAddress() +
-                                "\nAdres email: " + cust.getEmailAddress() +
-                                "\nData rejestracji: " + cust.getSurname() +
-                                "\nStan konta: " + cust.getBalance()
-                    
+                                "Id: " + order.getId() + 
+                                "\nImię: " + order.getCustomer().getName()+ 
+                                "\nNazwisko: " + order.getCustomer().getSurname() +
+                                "\nTyp: " + order.getType().toString() +
+                                "\nProdukty:\n" + products +
+                                "Kwota do zapłaty: " + order.getSumPriceOfProducts() +
+                                "\nData zamówienia: " + orderDate                  
                         );
                         showMessageDialog(this, customerInfo, "Informacje o zamówieniu", HEIGHT);
                     }
@@ -216,7 +218,7 @@ public class OrderPanel extends javax.swing.JPanel {
                     showMessageDialog(null, "Brak zamówień");
                 }
                 dialog = null;                    
-            }
+            }/*
             else if(orderChooseActionPanel.getChooseAction() == 3 && globalIdCounter != 0) {//edit
                 dialog = null;
                 if(globalIdCounter != 0) {  
@@ -302,11 +304,11 @@ public class OrderPanel extends javax.swing.JPanel {
             }*/
         }
         catch (Exception ex) {
-            //Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderPanel.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        /*catch (ShopException ex) {
-            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        catch (ShopException ex) {
+            Logger.getLogger(OrderPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ButtonOrderActionMouseClicked
 
 

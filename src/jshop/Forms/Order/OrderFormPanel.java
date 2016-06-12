@@ -127,6 +127,7 @@ public class OrderFormPanel extends javax.swing.JPanel {
         SpinnerClientId = new javax.swing.JSpinner();
         ButtonClientsShow = new javax.swing.JButton();
         ButtonProductsShow = new javax.swing.JButton();
+        ButtonProductRemove = new javax.swing.JButton();
 
         LabelType.setText("Typ");
 
@@ -150,7 +151,7 @@ public class OrderFormPanel extends javax.swing.JPanel {
 
         SpinnerProductId.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
-        ButtonProductAdd.setText("Dodaj produkt");
+        ButtonProductAdd.setText("+");
         ButtonProductAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonProductAddMouseClicked(evt);
@@ -173,6 +174,13 @@ public class OrderFormPanel extends javax.swing.JPanel {
             }
         });
 
+        ButtonProductRemove.setText("-");
+        ButtonProductRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonProductRemoveMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,20 +194,23 @@ public class OrderFormPanel extends javax.swing.JPanel {
                             .addComponent(LabelCustomer)
                             .addComponent(LabelProducts))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(SpinnerProductId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                                     .addComponent(SpinnerClientId, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ButtonClientsShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(ButtonProductsShow, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ButtonClientsShow, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(ButtonProductAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(ButtonProductRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonProductAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ButtonProductsShow, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8))
             .addGroup(layout.createSequentialGroup()
                 .addGap(114, 114, 114)
@@ -222,14 +233,12 @@ public class OrderFormPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SpinnerProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelProducts)
-                    .addComponent(ButtonProductsShow))
+                    .addComponent(ButtonProductAdd)
+                    .addComponent(ButtonProductRemove))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(ButtonProductAdd)))
+                    .addComponent(ButtonProductsShow)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ButtonActionOrderDialog)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -295,11 +304,34 @@ public class OrderFormPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ButtonProductAddMouseClicked
 
+    private void ButtonProductRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductRemoveMouseClicked
+        //usuwam nie obiekt z list, ktorego id jest rowne temu ze spinnera a wedlug kolejnosci dodawania do listy
+        showMessageDialog(null, "1");
+        if((int)SpinnerProductId.getValue() < productList.size()) {
+            showMessageDialog(null, "2");
+            productList.remove((int)SpinnerProductId.getValue());
+            //productListModel.removeElementAt((int)SpinnerProductId.getValue());
+            productListModel.clear();
+            for(int i = 0; i < productList.size(); i++) {
+                String productInfo = new String(
+                    productList.get(i).getName() + " [" +
+                    productList.get(i).getType() + "][Id: " +
+                    productList.get(i).getId() + "]"
+                );
+                productListModel.addElement(productInfo);
+            }           
+        }
+        else {
+            showMessageDialog(null, "Nie ma takiego produktu na liście twoich zakupów!");
+        }
+    }//GEN-LAST:event_ButtonProductRemoveMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonActionOrderDialog;
     private javax.swing.JButton ButtonClientsShow;
     private javax.swing.JButton ButtonProductAdd;
+    private javax.swing.JButton ButtonProductRemove;
     private javax.swing.JButton ButtonProductsShow;
     private javax.swing.JComboBox<String> ComboBoxType;
     private javax.swing.JLabel LabelCustomer;

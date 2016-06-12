@@ -28,6 +28,7 @@ import jshop.Enums.OrderType;
 import jshop.Forms.Customer.CustomerPanel;
 import jshop.Forms.InfoPanel;
 import jshop.Forms.Product.ProductPanel;
+import static jshop.Forms.Product.ProductPanel.getProductMap;
 
 /**
  *
@@ -64,7 +65,7 @@ public class OrderFormPanel extends javax.swing.JPanel {
     }
     
     public void setCustomer(Customer customer) {        
-        if(customer != null) {
+        if(CustomerPanel.getCustomerMap().get(customer.getId()) != null) {
             SpinnerClientId.setValue(customer.getId());
         }        
     }
@@ -79,19 +80,28 @@ public class OrderFormPanel extends javax.swing.JPanel {
         }
     }
     
-    public void setProduct(List<Product> product) {
-         
-        if(product != null) {
-            for(int i = 0; i <= product.size(); i++) {
+    public void setProduct(List<Product> products) { 
+        
+        if(products != null) {
+            for(int i = 0; i < products.size(); i++) {
+                Product product = products.get(i);
                 String productInfo = new String(
-                    product.get(i).getName() + " [" +
-                    product.get(i).getType() + "][Id: " +
-                    product.get(i).getId() + "]"
+                    product.getName() + " [" +
+                    product.getType() + "][Id: " +
+                    product.getId() + "]"
                 );
                 productListModel.addElement(productInfo);
-                productList.add(product.get(i));
+                productList.add(product);
             }
         }
+        
+       /* for(int i = 0; i <= getProductMap().size(); i++) {
+                            Product tempProduct = getProduct(i);
+                            if(tempProduct != null) {
+                                String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
+                                listModel.addElement(productInfo);
+                            }                            
+                        }*/
 
     }
     

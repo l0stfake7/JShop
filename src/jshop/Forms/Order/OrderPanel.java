@@ -222,12 +222,12 @@ public class OrderPanel extends javax.swing.JPanel {
                     showMessageDialog(null, "Brak zamówień");
                 }
                 dialog = null;                    
-            }/*
+            }
             else if(orderChooseActionPanel.getChooseAction() == 3 && globalIdCounter != 0) {//edit
                 dialog = null;
                 if(globalIdCounter != 0) {  
-                    Order cust = getOrder((int) SpinnerOrderId.getValue());
-                    if(cust != null) {
+                    Order order = getOrder((int) SpinnerOrderId.getValue());
+                    if(order != null) {
                         orderAddPanel = new OrderFormPanel();
                         if (dialog == null) {            
                             Window win = SwingUtilities.getWindowAncestor(this);
@@ -240,33 +240,24 @@ public class OrderPanel extends javax.swing.JPanel {
                                 dialog.setLocationRelativeTo(null);
                                 
                                 //set data
-                                orderAddPanel.setName(cust.getName());
-                                orderAddPanel.setSurname(cust.getSurname());
-                                orderAddPanel.setPeselNumber(cust.getPeselNumber());
-                                orderAddPanel.setGender(cust.getGender());
-                                orderAddPanel.setDateBirthDay(cust.getDateOfBirth());
-                                orderAddPanel.setAddress(cust.getAddress());
-                                orderAddPanel.setEmail(cust.getEmailAddress());
-                                orderAddPanel.setBalance(cust.getBalance());
+                                orderAddPanel.setType(order.getType());
+                                orderAddPanel.setCustomer(order.getCustomer());
+                                orderAddPanel.setProduct(order.getProduct());
+                                
                             }
                         }
                         dialog.setVisible(true); // here the modal dialog takes over
-                        
+                        //check if
                         //save
-                        cust.setName(orderAddPanel.getName());
-                        cust.setSurname(orderAddPanel.getSurname());
-                        cust.setPeselNumber(orderAddPanel.getPeselNumber());
-                        cust.setGender(orderAddPanel.getGender());
-                        cust.setDateOfBirth(orderAddPanel.getDateBirthDay());
-                        cust.setAddress(orderAddPanel.getAddress());
-                        cust.setEmailAddress(orderAddPanel.getEmail());
-                        cust.setBalance(orderAddPanel.getBalance());
+                        order.setType(orderAddPanel.getType());
+                        order.setCustomer(orderAddPanel.getCustomer());
+                        order.setProduct(orderAddPanel.getProduct());
                         
                         listModel.clear();
                         for(int i = 0; i <= orderMap.size(); i++) {
-                            Order customer = getOrder(i);
-                            if(customer != null) {
-                                String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+                            Order tempOrder = getOrder(i);
+                            if(tempOrder != null) {
+                                String customerInfo = new String(order.getCustomer().getName() + " " + order.getCustomer().getSurname() + " [produktów: " + order.getProduct().size() + "] [kwota: " + order.getSumPriceOfProducts() + "] (id: " + order.getId() + ")");
                                 listModel.addElement(customerInfo);
                             }                            
                         } 
@@ -279,7 +270,7 @@ public class OrderPanel extends javax.swing.JPanel {
                     showMessageDialog(null, "Brak zamówień");
                 }
                 dialog = null; 
-            }*/
+            }
             else if(orderChooseActionPanel.getChooseAction() == 4 && globalIdCounter != 0) {//remove
                 dialog = null;
                 if(globalIdCounter != 0) {  

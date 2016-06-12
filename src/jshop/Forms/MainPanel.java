@@ -21,6 +21,7 @@ public class MainPanel extends javax.swing.JPanel {
  * import projektu do eclipse :v
  * sprawdzanie czy klienta stac na zamowienie
  * aktualizacja zamowien gdy zostal zmieniony klient lub produkt
+ * przerzucenie parsowania danych z forumalarzy z form na glowne panele
  */
     /**
      * Creates new form MainPanel

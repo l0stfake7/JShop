@@ -27,21 +27,29 @@ import jshop.Forms.Customer.CustomerPanel;
  */
 public class ProductPanel extends javax.swing.JPanel {
 
+    private ProductFormPanel productAddPanel;
+    private ChooseActionPanel productChooseActionPanel;    
+    private int globalIdCounter;//Product Id        
+    private DefaultListModel<String> listModel;
+    private static Map<Integer, Product> productMap;
+    
+    /**
+    * Creates new form ProductPanel
+    */
+    public ProductPanel() {
+        productMap = new HashMap<Integer, Product>();   
+        globalIdCounter = 0;
+        listModel = new DefaultListModel<>();
+        initComponents();        
+    }
+
+    
     /**
      * @return the productMap
      */
     public static Map<Integer, Product> getProductMap() {
         return productMap;
     }
-
-    private ProductFormPanel productAddPanel;
-    private ChooseActionPanel productChooseActionPanel;
-    
-    private int globalIdCounter = 0;//Product Id    
-    
-    private DefaultListModel<String> listModel = new DefaultListModel<>();
-
-    private static Map<Integer, Product> productMap;
     
     //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
     private static void addProduct(Product product) {
@@ -58,13 +66,6 @@ public class ProductPanel extends javax.swing.JPanel {
     
     private static void removeProduct(Product product) {
         getProductMap().remove(product.getId());
-    }
-    /**
-     * Creates new form ProductPanel
-     */
-    public ProductPanel() {
-        initComponents();
-        productMap = new HashMap<Integer, Product>();
     }
 
     /**

@@ -6,6 +6,7 @@
 package jshop.Forms.Order;
 
 import java.awt.AWTEvent;
+import java.awt.Dialog;
 import java.awt.Window;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -18,12 +19,14 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.Product;
 import jshop.Enums.OrderType;
 import jshop.Forms.Customer.CustomerPanel;
+import jshop.Forms.InfoPanel;
 import jshop.Forms.Product.ProductPanel;
 
 /**
@@ -35,9 +38,9 @@ public class OrderFormPanel extends javax.swing.JPanel {
     private DefaultComboBoxModel<String> customerComboBoxModel;
     private DefaultComboBoxModel<String> productComboBoxModel;
     private DefaultListModel<String> productListModel;
-
     private List<Product> productList;
     private Map<Integer, Product> productListBind;
+    private InfoPanel infoPanel; 
     
     /**
      * Creates new form OrderFormPanel
@@ -238,11 +241,39 @@ public class OrderFormPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ButtonActionOrderDialogMouseClicked
 
     private void ButtonClientsShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientsShowMouseClicked
-        //show new panel with jlist of clients
+        infoPanel = new InfoPanel();
+        JDialog dialog = null;
+        //show 
+        if (dialog == null) {
+            Window win = SwingUtilities.getWindowAncestor(this);
+            if (win != null) {
+                dialog = new JDialog(win, "Klienci",
+                        Dialog.ModalityType.APPLICATION_MODAL);
+                dialog.getContentPane().add(infoPanel);
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+            }
+        }
+        infoPanel.InfoPanelCustomer(CustomerPanel.getCustomerMap());
+        dialog.setVisible(true); // here the modal dialog takes over        
     }//GEN-LAST:event_ButtonClientsShowMouseClicked
 
     private void ButtonProductsShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductsShowMouseClicked
-        //show new panel with jlist of products
+        infoPanel = new InfoPanel();
+        JDialog dialog = null;
+        //show 
+        if (dialog == null) {
+            Window win = SwingUtilities.getWindowAncestor(this);
+            if (win != null) {
+                dialog = new JDialog(win, "Produkty",
+                        Dialog.ModalityType.APPLICATION_MODAL);
+                dialog.getContentPane().add(infoPanel);
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+            }
+        }
+        infoPanel.InfoPanelProduct(ProductPanel.getProductMap());
+        dialog.setVisible(true); // here the modal dialog takes over        
     }//GEN-LAST:event_ButtonProductsShowMouseClicked
 
     private void ButtonProductAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductAddMouseClicked

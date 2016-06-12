@@ -26,23 +26,31 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author bartek
  */
 public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Order>*/ {
-
+    
+    private CustomerFormPanel customerAddPanel;
+    private ChooseActionPanel customerChooseActionPanel;    
+    private int globalIdCounter;//Customers Id       
+    private DefaultListModel<String> listModel;
+    private static Map<Integer, Customer> customerMap;
+     
     /**
-     * @return the customerMap
-     */
+    * Creates new form MainFramePanel
+    */
+    public CustomerPanel() {
+        globalIdCounter = 0;
+        customerMap = new HashMap<Integer, Customer>();
+        listModel = new DefaultListModel<>();
+        initComponents();     
+        
+    }
+    
+    /**
+    * @return the customerMap
+    */
     public static Map<Integer, Customer> getCustomerMap() {
         return customerMap;
     }
     
-    private CustomerFormPanel customerAddPanel;
-    private ChooseActionPanel customerChooseActionPanel;
-    
-    private int globalIdCounter = 0;//Customers Id    
-    
-    private DefaultListModel<String> listModel = new DefaultListModel<>();
-
-    private static Map<Integer, Customer> customerMap;
-     
     //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
     private static void addCustomer(Customer cust) {
         getCustomerMap().put(cust.getId(), cust);
@@ -58,15 +66,6 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
     
     private static void removeCustomer(Customer customer) {
         getCustomerMap().remove(customer.getId());
-    }
-
-    /**
-     * Creates new form MainFramePanel
-     */
-    public CustomerPanel() {
-        initComponents();
-        
-        customerMap = new HashMap<Integer, Customer>();
     }
     
     /**

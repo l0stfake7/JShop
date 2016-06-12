@@ -20,8 +20,7 @@ public class MainPanel extends javax.swing.JPanel {
  * maksymalna wartosc spinnera jako wielkosc counter obiektow
  * import projektu do eclipse :v
  * sprawdzanie czy klienta stac na zamowienie
- * 
- * 
+ * aktualizacja zamowien gdy zostal zmieniony klient lub produkt
  */
     /**
      * Creates new form MainPanel

@@ -30,15 +30,21 @@ public class OrderPanel extends javax.swing.JPanel {
 
     
     private OrderFormPanel orderAddPanel;
-    private ChooseActionPanel orderChooseActionPanel;
-    
-    private int globalIdCounter = 0;//Orders Id    
-    
-    private DefaultListModel<String> listModel = new DefaultListModel<>();
-
+    private ChooseActionPanel orderChooseActionPanel;    
+    private int globalIdCounter;//Orders Id        
+    private DefaultListModel<String> listModel;
     private static Map<Integer, Order> orderMap;
     
-    //po kazdej zmiane odswiezac cala jliste z indeksami, zrobic powiazanie indeks list-obiekt
+    /**
+    * Creates new form OrderPanel
+    */
+    public OrderPanel() {   
+        listModel = new DefaultListModel<>();
+        orderMap = new HashMap<Integer, Order>();
+        globalIdCounter = 0;        
+        initComponents();
+    }    
+    
     private static void addOrder(Order order) {
         orderMap.put(order.getId(), order);
     }
@@ -53,14 +59,6 @@ public class OrderPanel extends javax.swing.JPanel {
     
     private static void removeOrder(Order order) {
         orderMap.remove(order.getId());
-    }
-    /**
-     * Creates new form OrderPanel
-     */
-    public OrderPanel() {
-        initComponents();
-        
-        orderMap = new HashMap<Integer, Order>();
     }
 
     /**

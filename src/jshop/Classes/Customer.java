@@ -18,6 +18,10 @@ public class Customer extends Person {
     private double balance;
 
     //constructors
+    public Customer() {
+        
+    }
+    
     public Customer(int id, String name, String surname, long peselNumber, boolean gender, Date dateOfBirth, String address, String emailAddress, Date registerDate, double balance) {
         super(id, name, surname, peselNumber, gender, dateOfBirth, address, emailAddress);
         this.setRegisterDate(registerDate);

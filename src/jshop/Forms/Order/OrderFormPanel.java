@@ -14,7 +14,6 @@ import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.Product;
@@ -22,6 +21,7 @@ import jshop.Enums.OrderType;
 import jshop.Forms.Customer.CustomerPanel;
 import jshop.Forms.InfoPanel;
 import jshop.Forms.Product.ProductPanel;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -87,15 +87,6 @@ public class OrderFormPanel extends javax.swing.JPanel {
                 productList.add(product);
             }
         }
-        
-       /* for(int i = 0; i <= getProductMap().size(); i++) {
-                            Product tempProduct = getProduct(i);
-                            if(tempProduct != null) {
-                                String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
-                                listModel.addElement(productInfo);
-                            }                            
-                        }*/
-
     }
     
     public List<Product> getProduct() {
@@ -306,9 +297,7 @@ public class OrderFormPanel extends javax.swing.JPanel {
 
     private void ButtonProductRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductRemoveMouseClicked
         //usuwam nie obiekt z list, ktorego id jest rowne temu ze spinnera a wedlug kolejnosci dodawania do listy
-        showMessageDialog(null, "1");
         if((int)SpinnerProductId.getValue() < productList.size()) {
-            showMessageDialog(null, "2");
             productList.remove((int)SpinnerProductId.getValue());
             //productListModel.removeElementAt((int)SpinnerProductId.getValue());
             productListModel.clear();

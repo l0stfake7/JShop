@@ -164,22 +164,28 @@ public class ProductPanel extends javax.swing.JPanel {
                 }
                 dialog.setVisible(true); // here the modal dialog takes over
                 //TODO check if datas from form is not null
-                //get values from fields by getters      
-                Date todayDate = new Date();
+                //get values from fields by getters   
+                if(productAddPanel.getName().equals("") ||
+                    Double.toString(productAddPanel.getPrice()).equals("")) {
+                    showMessageDialog(null, "Musisz uzupełnić wszystkie pola!");
+                }
+                else {
+                    Date todayDate = new Date();
 
-                Product product = new Product(globalIdCounter,
-                        productAddPanel.getType(),
-                        productAddPanel.getName(),
-                        productAddPanel.getPrice()
-                );
-                //add to collection
-                addProduct(product);
-                //listCustomerBind.put(product.getId(), listItemsCounter);
+                    Product product = new Product(globalIdCounter,
+                            productAddPanel.getType(),
+                            productAddPanel.getName(),
+                            productAddPanel.getPrice()
+                    );
+                    //add to collection
+                    addProduct(product);
+                    //listCustomerBind.put(product.getId(), listItemsCounter);
 
-                //add to list
-                String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
-                listModel.addElement(productInfo);
-                globalIdCounter++;
+                    //add to list
+                    String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
+                    listModel.addElement(productInfo);
+                    globalIdCounter++;
+                }
             }
             else if(productChooseActionPanel.getChooseAction() == 2) {//show
                 dialog = null;
@@ -229,19 +235,24 @@ public class ProductPanel extends javax.swing.JPanel {
                             }
                         }
                         dialog.setVisible(true); // here the modal dialog takes over
-                        
-                        //save
-                        product.setName(productAddPanel.getName());
-                        product.setType(productAddPanel.getType());
-                        product.setPrice(productAddPanel.getPrice());
-                        
-                        listModel.clear();
-                        for(int i = 0; i <= getProductMap().size(); i++) {
-                            Product tempProduct = getProduct(i);
-                            if(tempProduct != null) {
-                                String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
-                                listModel.addElement(productInfo);
-                            }                            
+                        if(productAddPanel.getName().equals("") ||
+                            Double.toString(productAddPanel.getPrice()).equals("")) {
+                            showMessageDialog(null, "Musisz uzupełnić wszystkie pola!");
+                        }
+                        else {
+                            //save
+                            product.setName(productAddPanel.getName());
+                            product.setType(productAddPanel.getType());
+                            product.setPrice(productAddPanel.getPrice());
+
+                            listModel.clear();
+                            for(int i = 0; i <= getProductMap().size(); i++) {
+                                Product tempProduct = getProduct(i);
+                                if(tempProduct != null) {
+                                    String productInfo = product.getName() + " [" + product.getType() + "][" + product.getPrice() + "PLN] (id: " + product.getId() + ")";
+                                    listModel.addElement(productInfo);
+                                }                            
+                            }
                         }
                     }
                     else {

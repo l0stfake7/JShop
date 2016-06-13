@@ -166,9 +166,19 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 dialog.setVisible(true); // here the modal dialog takes over
                 //TODO check if datas from form is not null
                 //get values from fields by getters      
-                Date todayDate = new Date();
-
-                Customer customer = new Customer(globalIdCounter,
+                
+                if(customerAddPanel.getName().equals("") ||
+                    customerAddPanel.getSurname().equals("") ||
+                    Long.toString(customerAddPanel.getPeselNumber()).length() != 11||
+                    customerAddPanel.getDateBirthDay().equals("") ||
+                    customerAddPanel.getAddress().equals("") ||
+                    customerAddPanel.getEmail().equals("")) 
+                {
+                    showMessageDialog(null, "Musisz wypełnić wszystkie pola!");                    
+                }
+                else {    
+                    Date todayDate = new Date();                        
+                    Customer customer = new Customer(globalIdCounter,
                         customerAddPanel.getName(),
                         customerAddPanel.getSurname(),
                         customerAddPanel.getPeselNumber(),
@@ -178,15 +188,17 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                         customerAddPanel.getEmail(),
                         todayDate,
                         customerAddPanel.getBalance()
-                );
-                //add to collection
-                addCustomer(customer);
-                //listCustomerBind.put(customer.getId(), listItemsCounter);
+                    );
+                    //add to collection
+                    addCustomer(customer);
+                    //listCustomerBind.put(customer.getId(), listItemsCounter);
 
-                //add to list
-                String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
-                listModel.addElement(customerInfo);
-                globalIdCounter++;
+                    //add to list
+                    String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+                    listModel.addElement(customerInfo);
+                    globalIdCounter++;
+                }              
+                
             }
             else if(customerChooseActionPanel.getChooseAction() == 2) {//show
                 dialog = null;
@@ -247,25 +259,35 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                             }
                         }
                         dialog.setVisible(true); // here the modal dialog takes over
-                        
-                        //save
-                        cust.setName(customerAddPanel.getName());
-                        cust.setSurname(customerAddPanel.getSurname());
-                        cust.setPeselNumber(customerAddPanel.getPeselNumber());
-                        cust.setGender(customerAddPanel.getGender());
-                        cust.setDateOfBirth(customerAddPanel.getDateBirthDay());
-                        cust.setAddress(customerAddPanel.getAddress());
-                        cust.setEmailAddress(customerAddPanel.getEmail());
-                        cust.setBalance(customerAddPanel.getBalance());
-                        
-                        listModel.clear();
-                        for(int i = 0; i <= getCustomerMap().size(); i++) {
-                            Customer customer = getCustomer(i);
-                            if(customer != null) {
-                                String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
-                                listModel.addElement(customerInfo);
-                            }                            
-                        } 
+                        if(customerAddPanel.getName().equals("") ||
+                            customerAddPanel.getSurname().equals("") ||
+                            Long.toString(customerAddPanel.getPeselNumber()).length() != 11||
+                            customerAddPanel.getDateBirthDay().equals("") ||
+                            customerAddPanel.getAddress().equals("") ||
+                            customerAddPanel.getEmail().equals("")) 
+                        {
+                            showMessageDialog(null, "Musisz wypełnić wszystkie pola!");
+                        }
+                        else {
+                            //save
+                            cust.setName(customerAddPanel.getName());
+                            cust.setSurname(customerAddPanel.getSurname());
+                            cust.setPeselNumber(customerAddPanel.getPeselNumber());
+                            cust.setGender(customerAddPanel.getGender());
+                            cust.setDateOfBirth(customerAddPanel.getDateBirthDay());
+                            cust.setAddress(customerAddPanel.getAddress());
+                            cust.setEmailAddress(customerAddPanel.getEmail());
+                            cust.setBalance(customerAddPanel.getBalance());
+
+                            listModel.clear();
+                            for(int i = 0; i <= getCustomerMap().size(); i++) {
+                                Customer customer = getCustomer(i);
+                                if(customer != null) {
+                                    String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+                                    listModel.addElement(customerInfo);
+                                }                            
+                            } 
+                        }
                     }
                     else {
                         showMessageDialog(null, "Brak klientów");

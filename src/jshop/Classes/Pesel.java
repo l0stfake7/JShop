@@ -7,13 +7,14 @@ package jshop.Classes;
 
 import java.util.Date;
 import jdk.internal.org.objectweb.asm.Type;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 
 /**
  *
  * @author bartek
  */
 public class Pesel {
-    private final short PeselLength = 11;
+    private static final short PeselLength = 11;
     private int Gender;
     private Date DateOfBirth;
     private Object PeselNumber;
@@ -52,7 +53,7 @@ public class Pesel {
      */
     public static boolean getGender(String peselNumber) {
         int index = peselNumber.length() - 2;
-        int gender = (Integer.parseInt(peselNumber.valueOf(index)) % 2);
+        int gender = (Integer.parseInt(peselNumber.substring(index, index-1)) % 2);
         return (gender == 1);
         //jeśli reszta z dzielenia to jeden, oznacza to, że mamy mężczyznę, w przeciwnym razie mamy kobietę          
        
@@ -117,6 +118,25 @@ public class Pesel {
     public void setDateOfBirth(Date DateOfBirth) {
         this.DateOfBirth = DateOfBirth;
     }
+    
+    public static boolean CheckDateOfBirth(Date date, String pesel) throws ShopException
+    {
+        if(date.compareTo(GetDateOfBirth(pesel)) != 0) {
+            throw new ShopException("Wybrana data jest niezgodna z podanym numerem Pesel");
+        }
+        return true;
+    }
+
+    public static int CalculateControlSum(String input, int[] weights)
+    {
+        int controlSum = 0;
+        for (int i = 0; i < input.length() - 1; i++)
+        {
+            controlSum += weights[i] * Integer.parseInt(input.substring(i, i+1));
+            //Convert.ToInt32(input[i].ToString());//zmieniam znak asci odpowiedniego znaku pesel-ciągu na cyfrę
+        }
+        return controlSum;
+    }
 
     /**
      * @return the PeselNumber
@@ -126,12 +146,14 @@ public class Pesel {
     }
 
     /**
+     * @param peselNumber
      * @param PeselNumber the PeselNumber to set
+     * @throws jshop.Classes.ShopException
      */
     public void setPeselNumber(Object peselNumber) throws ShopException {
         if(peselNumber instanceof String) {
-            if(CheckPesel(peselNumber)) {
-                this.PeselNumber = peselNumber;
+            if(CheckPesel(peselNumber.toString())) {
+                this.PeselNumber = peselNumber.toString();
             }
         }
         else if(peselNumber instanceof Long) {
@@ -144,6 +166,49 @@ public class Pesel {
             throw new ShopException("Nieobsługiwany typ danych");
         }
 
+    }
+    
+    public static boolean CheckPesel(String pesel) throws ShopException
+    {
+        int[] scales = //wagi dla każdej kolejnej cyfry numeru pesel
+        {
+            1, 3, 7, 9, 1, 3, 7, 9, 1, 3
+        };
+        String regex = new String("^[0-9]*$");
+        if (pesel == null)
+        {
+            throw new NullPointerException("Wykryto odwołanie do obiektu o wartosc null");
+        }
+        if (pesel.length() == 0)
+        {
+            throw new ShopException("Nic nie wpisałeś!");
+        }
+        if (pesel.length() != PeselLength)
+        {
+            throw new ShopException("Nieprawidłowa długość numeru PESEL!");
+        }
+        if (!pesel.matches(regex))
+        {
+            throw new ShopException("Wykryto nieprawdiłowe znaki, PESEL może zawierać tylko cyfry!");
+        }
+        int controlSum = CalculateControlSum(pesel, scales);
+        int controlNum = controlSum % 10;
+        controlNum = 10 - controlNum;
+        if (controlNum == 10)
+        {
+            controlNum = 0;
+        }
+        int lastDigit = Integer.parseInt(pesel.substring(pesel.length() -1, pesel.length()));
+        if (controlNum != lastDigit)
+        {
+            throw new ShopException("Nieprawidłowa suma kontrolna, taki PESEL nie istnieje!");
+        }
+        return true;
+    }
+    
+    public static boolean CheckPesel(long pesel)
+    {
+        return CheckPesel(Long.valueOf(pesel));
     }
     
 }

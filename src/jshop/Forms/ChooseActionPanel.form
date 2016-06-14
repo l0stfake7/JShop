@@ -19,10 +19,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ButtonRealize" pref="191" max="32767" attributes="0"/>
                   <Component id="ButtonRemoveAction" alignment="0" max="32767" attributes="0"/>
                   <Component id="ButtonEditAction" alignment="0" max="32767" attributes="0"/>
-                  <Component id="ButtonShowAction" max="32767" attributes="0"/>
+                  <Component id="ButtonShowAction" pref="191" max="32767" attributes="0"/>
                   <Component id="ButtonAddAction" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -40,9 +39,7 @@
               <Component id="ButtonEditAction" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="ButtonRemoveAction" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="ButtonRealize" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -78,14 +75,6 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonShowActionMouseClicked"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="ButtonRealize">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Zrealizuj zam&#xf3;wienie"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonRealizeMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

@@ -5,16 +5,15 @@
  */
 package jshop.Forms.Customer;
 
-import java.awt.Dialog;
+import java.awt.Dialog;;
 import java.awt.Window;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Customer;
 import jshop.Classes.ShopException;
@@ -143,7 +142,6 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                     customerChooseActionPanel.ButtonShowSetText("Zobacz klienta");
                     customerChooseActionPanel.ButtonEditSetText("Edytuj klienta");
                     customerChooseActionPanel.ButtonRemoveSetText("Usuń klienta");
-                    customerChooseActionPanel.HideRealizeButton();
                     dialog.pack();
                     dialog.setLocationRelativeTo(null);
                 }
@@ -174,10 +172,13 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                     customerAddPanel.getAddress().equals("") ||
                     customerAddPanel.getEmail().equals("")) 
                 {
-                    showMessageDialog(null, "Musisz wypełnić wszystkie pola!");                    
+                    throw new ShopException("Musisz wypełnić wszystkie pola!");                    
                 }
                 else {    
-                    Date todayDate = new Date();                        
+                    Date todayDate = new Date();  
+                    //Pesel.CheckPesel(customerAddPanel.getPeselNumber());
+                    //Pesel.CheckGender(customerAddPanel.getGender(), Long.toString(customerAddPanel.getPeselNumber()));
+                    //Pesel.CheckDateOfBirth(customerAddPanel.getDateBirthDay(), Long.toString(customerAddPanel.getPeselNumber()));
                     Customer customer = new Customer(globalIdCounter,
                         customerAddPanel.getName(),
                         customerAddPanel.getSurname(),
@@ -223,11 +224,11 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                         showMessageDialog(this, customerInfo, "Informacje o kliencie", HEIGHT);
                     }
                     else {
-                       showMessageDialog(null, "Nie ma takiego klienta!"); 
+                       throw new ShopException("Nie ma takiego klienta!"); 
                     }                    
                 }
                 else {
-                    showMessageDialog(null, "Brak klientów");
+                    throw new ShopException("Brak klientów");
                 }
                 dialog = null;                    
             }
@@ -266,7 +267,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                             customerAddPanel.getAddress().equals("") ||
                             customerAddPanel.getEmail().equals("")) 
                         {
-                            showMessageDialog(null, "Musisz wypełnić wszystkie pola!");
+                            throw new ShopException("Musisz wypełnić wszystkie pola!");
                         }
                         else {
                             //save
@@ -290,11 +291,11 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                         }
                     }
                     else {
-                        showMessageDialog(null, "Brak klientów");
+                        throw new ShopException("Brak klientów");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Brak klientów");
+                    throw new ShopException("Brak klientów");
                 }
                 dialog = null; 
             }
@@ -316,20 +317,20 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                         } 
                     }
                     else {
-                        showMessageDialog(null, "Brak klientów");
+                        throw new ShopException("Brak klientów");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Brak klientów");
+                    throw new ShopException("Brak klientów");
                 }
                 dialog = null; 
             }
         }
         catch (Exception ex) {
-            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            showMessageDialog(null, ex.getMessage(), "Błąd ogólny programu",  JOptionPane.ERROR_MESSAGE);
         } 
         catch (ShopException ex) {
-            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            showMessageDialog(null, ex.getMessage(), "Komunikat",  JOptionPane.ERROR_MESSAGE);
         }  
 
     }//GEN-LAST:event_ButtonCustomerActionMouseClicked

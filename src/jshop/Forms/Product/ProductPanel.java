@@ -10,16 +10,14 @@ import java.awt.Window;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Product;
 import jshop.Classes.ShopException;
 import jshop.Forms.ChooseActionPanel;
-import jshop.Forms.Customer.CustomerPanel;
-import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -142,7 +140,6 @@ public class ProductPanel extends javax.swing.JPanel {
                     productChooseActionPanel.ButtonShowSetText("Zobacz produkt");
                     productChooseActionPanel.ButtonEditSetText("Edytuj produkt");
                     productChooseActionPanel.ButtonRemoveSetText("Usuń produkt");
-                    productChooseActionPanel.HideRealizeButton();
                     dialog.pack();
                     dialog.setLocationRelativeTo(null);
                 }
@@ -167,7 +164,7 @@ public class ProductPanel extends javax.swing.JPanel {
                 //get values from fields by getters   
                 if(productAddPanel.getName().equals("") ||
                     Double.toString(productAddPanel.getPrice()).equals("")) {
-                    showMessageDialog(null, "Musisz uzupełnić wszystkie pola!");
+                    throw new ShopException("Musisz uzupełnić wszystkie pola!");
                 }
                 else {
                     Date todayDate = new Date();
@@ -204,11 +201,11 @@ public class ProductPanel extends javax.swing.JPanel {
                         showMessageDialog(this, productInfo, "Informacje o produkcie", HEIGHT);
                     }
                     else {
-                       showMessageDialog(null, "Nie ma takiego produktu!"); 
+                       throw new ShopException("Nie ma takiego produktu!"); 
                     }                    
                 }
                 else {
-                    showMessageDialog(null, "Brak produktów");
+                    throw new ShopException("Brak produktów");
                 }
                 dialog = null;                    
             }
@@ -237,7 +234,7 @@ public class ProductPanel extends javax.swing.JPanel {
                         dialog.setVisible(true); // here the modal dialog takes over
                         if(productAddPanel.getName().equals("") ||
                             Double.toString(productAddPanel.getPrice()).equals("")) {
-                            showMessageDialog(null, "Musisz uzupełnić wszystkie pola!");
+                            throw new ShopException("Musisz uzupełnić wszystkie pola!");
                         }
                         else {
                             //save
@@ -256,11 +253,11 @@ public class ProductPanel extends javax.swing.JPanel {
                         }
                     }
                     else {
-                        showMessageDialog(null, "Brak produktów");
+                        throw new ShopException("Brak produktów");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Brak produktów");
+                    throw new ShopException("Brak produktów");
                 }
                 dialog = null; 
             }
@@ -282,21 +279,21 @@ public class ProductPanel extends javax.swing.JPanel {
                                 }
                     }
                     else {
-                        showMessageDialog(null, "Brak produktów");
+                        throw new ShopException("Brak produktów");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Brak produktów");
+                    throw new ShopException("Brak produktów");
                 }
                 dialog = null; 
             }
         }
         catch (Exception ex) {
-            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            showMessageDialog(null, ex.getMessage(), "Błąd ogólny programu",  JOptionPane.ERROR_MESSAGE);
         } 
         catch (ShopException ex) {
-            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            showMessageDialog(null, ex.getMessage(), "Komunikat",  JOptionPane.PLAIN_MESSAGE);
+        }  
     }//GEN-LAST:event_ButtonProductActionMouseClicked
 
 

@@ -48,12 +48,7 @@ public class ChooseActionPanel extends javax.swing.JPanel {
             
     public void ButtonRemoveSetText(String text) {
         ButtonRemoveAction.setText(text);
-    }
-    
-    public void HideRealizeButton() {
-        ButtonRealize.setVisible(false);
-    }
-    
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,7 +63,6 @@ public class ChooseActionPanel extends javax.swing.JPanel {
         ButtonRemoveAction = new javax.swing.JButton();
         ButtonAddAction = new javax.swing.JButton();
         ButtonShowAction = new javax.swing.JButton();
-        ButtonRealize = new javax.swing.JButton();
 
         ButtonEditAction.setText("Edytuj zamówienie");
         ButtonEditAction.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,13 +92,6 @@ public class ChooseActionPanel extends javax.swing.JPanel {
             }
         });
 
-        ButtonRealize.setText("Zrealizuj zamówienie");
-        ButtonRealize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonRealizeMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,10 +99,9 @@ public class ChooseActionPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonRealize, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                     .addComponent(ButtonRemoveAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ButtonEditAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ButtonShowAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonShowAction, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                     .addComponent(ButtonAddAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -130,9 +116,7 @@ public class ChooseActionPanel extends javax.swing.JPanel {
                 .addComponent(ButtonEditAction)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ButtonRemoveAction)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ButtonRealize)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,17 +141,10 @@ public class ChooseActionPanel extends javax.swing.JPanel {
         showParentWindow();
     }//GEN-LAST:event_ButtonShowActionMouseClicked
 
-    private void ButtonRealizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRealizeMouseClicked
-        chooseAction = 5;
-        showParentWindow();
-        
-    }//GEN-LAST:event_ButtonRealizeMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAddAction;
     private javax.swing.JButton ButtonEditAction;
-    private javax.swing.JButton ButtonRealize;
     private javax.swing.JButton ButtonRemoveAction;
     private javax.swing.JButton ButtonShowAction;
     // End of variables declaration//GEN-END:variables

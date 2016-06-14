@@ -11,15 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import jshop.Classes.Order;
 import jshop.Classes.ShopException;
 import jshop.Forms.ChooseActionPanel;
-import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -161,31 +160,40 @@ public class OrderPanel extends javax.swing.JPanel {
 
                 if(orderAddPanel.getCustomer() != null) {
                     if(orderAddPanel.getProduct().size() != 0) {
-                        Date todayDate = new Date();
+                        double sumOfPrice = 0.0;
+                        for(int i = 0; i < orderAddPanel.getProduct().size(); i++) {
+                            sumOfPrice += orderAddPanel.getProduct().get(i).getPrice();
+                        }                        
+                        if(orderAddPanel.getCustomer().getBalance() - sumOfPrice >= 0) {
+                            Date todayDate = new Date();
 
-                        Order order = new Order(globalIdCounter,
-                                orderAddPanel.getType(),
-                                orderAddPanel.getCustomer(),
-                                todayDate,
-                                todayDate,
-                                orderAddPanel.getProduct()
-                        );
-                        //add to collection
-                        addOrder(order);
+                            Order order = new Order(globalIdCounter,
+                                    orderAddPanel.getType(),
+                                    orderAddPanel.getCustomer(),
+                                    todayDate,
+                                    todayDate,
+                                    orderAddPanel.getProduct()
+                            );
+                            //add to collection
+                            addOrder(order);
 
-                        //add to list
-                        String productInfo = new String(order.getCustomer().getName() + " " + order.getCustomer().getSurname() + " [produktów: " + order.getProduct().size() + "] [kwota: " + order.getSumPriceOfProducts() + "] (id: " + order.getId() + ")");
+                            //add to list
+                            String productInfo = new String(order.getCustomer().getName() + " " + order.getCustomer().getSurname() + " [produktów: " + order.getProduct().size() + "] [kwota: " + order.getSumPriceOfProducts() + "] (id: " + order.getId() + ")");
 
-                        listModel.addElement(productInfo);
-                        globalIdCounter++;
+                            listModel.addElement(productInfo);
+                            globalIdCounter++;
+                        }
+                        else {
+                            throw new ShopException("Nie stać cię na tak duże zamówienie");
+                        }                            
                     }
                     else {
                         //throw new ShopException("");
-                        showMessageDialog(null, "Musisz dodać przynajmniej jeden produkt");
+                        throw new ShopException("Musisz dodać przynajmniej jeden produkt");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Nie ma takiego klienta");
+                    throw new ShopException("Nie ma takiego klienta");
                     //throw new ShopException("");
                 }
                 
@@ -214,11 +222,11 @@ public class OrderPanel extends javax.swing.JPanel {
                         showMessageDialog(this, customerInfo, "Informacje o zamówieniu", HEIGHT);
                     }
                     else {
-                       showMessageDialog(null, "Nie ma takiego zamówienia!"); 
+                       throw new ShopException("Nie ma takiego zamówienia!"); 
                     }                    
                 }
                 else {
-                    showMessageDialog(null, "Brak zamówień");
+                    throw new ShopException("Brak zamówień");
                 }
                 dialog = null;                    
             }
@@ -262,11 +270,11 @@ public class OrderPanel extends javax.swing.JPanel {
                         } 
                     }
                     else {
-                        showMessageDialog(null, "Brak zamówień");
+                        throw new ShopException("Brak zamówień");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Brak zamówień");
+                    throw new ShopException("Brak zamówień");
                 }
                 dialog = null; 
             }
@@ -288,21 +296,21 @@ public class OrderPanel extends javax.swing.JPanel {
                         } 
                     }
                     else {
-                        showMessageDialog(null, "Brak zamówień");
+                        throw new ShopException("Brak zamówień");
                     }
                 }
                 else {
-                    showMessageDialog(null, "Brak zamówień");
+                    throw new ShopException("Brak zamówień");
                 }
                 dialog = null; 
             }
         }
         catch (Exception ex) {
-            Logger.getLogger(OrderPanel.class.getName()).log(Level.SEVERE, null, ex);
+            showMessageDialog(null, ex.getMessage(), "Błąd ogólny programu",  JOptionPane.ERROR_MESSAGE);
         } 
         catch (ShopException ex) {
-            Logger.getLogger(OrderPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            showMessageDialog(null, ex.getMessage(), "Komunikat",  JOptionPane.ERROR_MESSAGE);
+        }  
     }//GEN-LAST:event_ButtonOrderActionMouseClicked
 
 

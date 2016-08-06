@@ -13,10 +13,8 @@ package jshop.Forms;
 public class MainPanel extends javax.swing.JPanel {
 //TODO:
 /**
- * zrobic wyjatki
  * gdy usuwany klient lub produkt to sprawdzic powiazane zlecenia
  * import projektu do eclipse :v
- * sprawdzanie czy klienta stac na zamowienie
  */
     /**
      * Creates new form MainPanel

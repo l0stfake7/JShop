@@ -19,6 +19,7 @@ import jshop.Classes.Customer;
 import jshop.Classes.ShopException;
 import jshop.Forms.ChooseActionPanel;
 import static javax.swing.JOptionPane.showMessageDialog;
+import jshop.Forms.Order.OrderPanel;
 
 /**
  *
@@ -66,6 +67,20 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
     private static void removeCustomer(Customer customer) {
         getCustomerMap().remove(customer.getId());
     }
+    
+    private static boolean isNumeric(String str)  
+    {  
+        try  
+        {  
+          double d = Double.parseDouble(str);  
+        }  
+        catch(NumberFormatException nfe)  
+        {  
+          return false;  
+        }  
+        return true;  
+    }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -165,7 +180,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 //TODO check if datas from form is not null
                 //get values from fields by getters      
                 
-                if(customerAddPanel.getName().equals("") ||
+                if( customerAddPanel.getName().equals("") ||
                     customerAddPanel.getSurname().equals("") ||
                     Long.toString(customerAddPanel.getPeselNumber()).length() != 11||
                     customerAddPanel.getDateBirthDay().equals("") ||
@@ -174,30 +189,50 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 {
                     throw new ShopException("Musisz wypełnić wszystkie pola!");                    
                 }
-                else {    
-                    Date todayDate = new Date();  
-                    //Pesel.CheckPesel(customerAddPanel.getPeselNumber());
-                    //Pesel.CheckGender(customerAddPanel.getGender(), Long.toString(customerAddPanel.getPeselNumber()));
-                    //Pesel.CheckDateOfBirth(customerAddPanel.getDateBirthDay(), Long.toString(customerAddPanel.getPeselNumber()));
-                    Customer customer = new Customer(globalIdCounter,
-                        customerAddPanel.getName(),
-                        customerAddPanel.getSurname(),
-                        customerAddPanel.getPeselNumber(),
-                        customerAddPanel.getGender(),
-                        customerAddPanel.getDateBirthDay(),
-                        customerAddPanel.getAddress(),
-                        customerAddPanel.getEmail(),
-                        todayDate,
-                        customerAddPanel.getBalance()
-                    );
-                    //add to collection
-                    addCustomer(customer);
-                    //listCustomerBind.put(customer.getId(), listItemsCounter);
+                else {  
+                    String nameCaption = customerAddPanel.getName().substring(0, 1);    
+                    String surnameCaption = customerAddPanel.getName().substring(0, 1);    
+                    if(nameCaption.equals(nameCaption.toUpperCase()) && surnameCaption.equals(surnameCaption.toUpperCase())) {//jesli jest duza litera
+                        
+                        if(!customerAddPanel.getName().matches(".*\\d.*")) {
+                            if(!customerAddPanel.getSurname().matches(".*\\d.*")) {
+                                Date todayDate = new Date();  
+                                //Pesel.CheckPesel(customerAddPanel.getPeselNumber());
+                                //Pesel.CheckGender(customerAddPanel.getGender(), Long.toString(customerAddPanel.getPeselNumber()));
+                                //Pesel.CheckDateOfBirth(customerAddPanel.getDateBirthDay(), Long.toString(customerAddPanel.getPeselNumber()));
+                                Customer customer = new Customer(globalIdCounter,
+                                    customerAddPanel.getName(),
+                                    customerAddPanel.getSurname(),
+                                    customerAddPanel.getPeselNumber(),
+                                    customerAddPanel.getGender(),
+                                    customerAddPanel.getDateBirthDay(),
+                                    customerAddPanel.getAddress(),
+                                    customerAddPanel.getEmail(),
+                                    todayDate,
+                                    customerAddPanel.getBalance()
+                                );
+                                //add to collection
+                                addCustomer(customer);
+                                //listCustomerBind.put(customer.getId(), listItemsCounter);
 
-                    //add to list
-                    String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
-                    listModel.addElement(customerInfo);
-                    globalIdCounter++;
+                                //add to list
+                                String customerInfo = customer.getName() + " " + customer.getSurname() + " (id: " + customer.getId() + ")";
+                                listModel.addElement(customerInfo);
+                                globalIdCounter++;
+                            }
+                            else {
+                                throw new ShopException("Nazwisko nie moze zawierać cyfr");
+                            }
+                        }
+                        else {
+                            throw new ShopException("Imie nie moze zawierać cyfr");
+                        }
+                            
+                    }
+                    else {
+                        throw new ShopException("Imie i nazwisko musi zaczynać się dużą literą!");
+                    }                    
+                    
                 }              
                 
             }
@@ -303,6 +338,7 @@ public class CustomerPanel extends javax.swing.JPanel /*implements ListModel<Ord
                 dialog = null;
                 if(globalIdCounter != 0) {  
                     Customer cust = getCustomer((int) SpinnerCustomerId.getValue());
+                    
                     if(cust != null) {
                         //remove from collection
                         removeCustomer(cust);

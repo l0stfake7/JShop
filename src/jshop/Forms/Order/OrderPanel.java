@@ -58,6 +58,8 @@ public class OrderPanel extends javax.swing.JPanel {
     private static void removeOrder(Order order) {
         orderMap.remove(order.getId());
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -256,18 +258,29 @@ public class OrderPanel extends javax.swing.JPanel {
                         dialog.setVisible(true); // here the modal dialog takes over
                         //check if customer exist
                         //save
-                        order.setType(orderAddPanel.getType());
-                        order.setCustomer(orderAddPanel.getCustomer());
-                        order.setProduct(orderAddPanel.getProduct());
+                        if(orderAddPanel.getCustomer() != null) {
+                            if(orderAddPanel.getProduct().size() != 0) {
                         
-                        listModel.clear();
-                        for(int i = 0; i <= orderMap.size(); i++) {
-                            Order tempOrder = getOrder(i);
-                            if(tempOrder != null) {
-                                String customerInfo = new String(order.getCustomer().getName() + " " + order.getCustomer().getSurname() + " [produktów: " + order.getProduct().size() + "] [kwota: " + order.getSumPriceOfProducts() + "] (id: " + order.getId() + ")");
-                                listModel.addElement(customerInfo);
-                            }                            
-                        } 
+                                order.setType(orderAddPanel.getType());
+                                order.setCustomer(orderAddPanel.getCustomer());
+                                order.setProduct(orderAddPanel.getProduct());
+
+                                listModel.clear();
+                                for(int i = 0; i <= orderMap.size(); i++) {
+                                    Order tempOrder = getOrder(i);
+                                    if(tempOrder != null) {
+                                        String customerInfo = new String(order.getCustomer().getName() + " " + order.getCustomer().getSurname() + " [produktów: " + order.getProduct().size() + "] [kwota: " + order.getSumPriceOfProducts() + "] (id: " + order.getId() + ")");
+                                        listModel.addElement(customerInfo);
+                                    }                            
+                                } 
+                            }
+                            else {
+                                throw new ShopException("Musisz dodac co najmiej jeden produkt");
+                            }
+                        }
+                        else {
+                            throw new ShopException("Nie ma takiego klienta");
+                        }
                     }
                     else {
                         throw new ShopException("Brak zamówień");

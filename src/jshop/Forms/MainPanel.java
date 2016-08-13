@@ -36,10 +36,12 @@ public class MainPanel extends javax.swing.JPanel {
         customerPanel1 = new jshop.Forms.Customer.CustomerPanel();
         productPanel1 = new jshop.Forms.Product.ProductPanel();
         orderPanel1 = new jshop.Forms.Order.OrderPanel();
+        settingPanel1 = new jshop.Forms.Setting.SettingPanel();
 
         jTabbedPane1.addTab("Klienci", customerPanel1);
         jTabbedPane1.addTab("Produkty", productPanel1);
         jTabbedPane1.addTab("Zamówienia", orderPanel1);
+        jTabbedPane1.addTab("Ustawienia", settingPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -65,5 +67,6 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private jshop.Forms.Order.OrderPanel orderPanel1;
     private jshop.Forms.Product.ProductPanel productPanel1;
+    private jshop.Forms.Setting.SettingPanel settingPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -37,3 +37,5 @@ nbactions.xml
 hs_err_pid*
 
 /build/
+
+src/hibernate.cfg.xml

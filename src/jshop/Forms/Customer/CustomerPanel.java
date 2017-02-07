@@ -5,7 +5,7 @@
  */
 package jshop.Forms.Customer;
 
-import java.awt.Dialog;;
+import java.awt.Dialog;
 import java.awt.Window;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +19,6 @@ import jshop.Classes.Customer;
 import jshop.Classes.ShopException;
 import jshop.Forms.ChooseActionPanel;
 import static javax.swing.JOptionPane.showMessageDialog;
-import jshop.Forms.Order.OrderPanel;
 
 /**
  *
